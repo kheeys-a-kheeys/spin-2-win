@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://78kb7ihn2st5"]
+
+[ext_resource type="Texture2D" uid="uid://by16n52wvfptv" path="res://Enemie_Purple.png" id="1_gu34h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5tt5"]
+atlas = ExtResource("1_gu34h")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqt3r"]
+atlas = ExtResource("1_gu34h")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rkbg"]
+atlas = ExtResource("1_gu34h")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v8mu"]
+atlas = ExtResource("1_gu34h")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ir4rd"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5tt5")
+}, {
+"duration": 1.0,
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rkbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v8mu")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0nqx"]
+radius = 14.035668
+
+[node name="Enemies" type="Node2D" unique_id=1120503382]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1298773801]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D" unique_id=1075269353]
+sprite_frames = SubResource("SpriteFrames_ir4rd")
+animation = &"idle"
+frame_progress = 0.29122844
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1336087048]
+shape = SubResource("CircleShape2D_e0nqx")
