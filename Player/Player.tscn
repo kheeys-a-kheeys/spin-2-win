@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://yihuy54mves0"]
+
+[ext_resource type="Script" uid="uid://c4qyv13tmoqsr" path="res://Player/Player.gd" id="1_q3lat"]
+[ext_resource type="Texture2D" uid="uid://c0kd0kupr4k7y" path="res://Assets/spinning.png" id="2_tok1r"]
+
+[node name="Player" type="Node2D" unique_id=1911981828]
+script = ExtResource("1_q3lat")
+
+[node name="spinor" type="Sprite2D" parent="." unique_id=208159224]
+texture = ExtResource("2_tok1r")
+hframes = 2
