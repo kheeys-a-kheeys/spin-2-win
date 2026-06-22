@@ -45,7 +45,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e0nqx"]
-radius = 14.035668
+radius = 20.0
 
 [node name="Enemies" type="Node2D" unique_id=1120503382]
 script = ExtResource("1_g5tt5")
@@ -58,4 +58,8 @@ animation = &"idle"
 frame_progress = 0.29122844
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1336087048]
+position = Vector2(2, 0)
 shape = SubResource("CircleShape2D_e0nqx")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=150895642]
+debug_enabled = true

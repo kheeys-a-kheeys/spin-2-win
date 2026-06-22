@@ -17,14 +17,14 @@ func _ready() -> void: #set up global
 # function (eventually) connected to area_entered signal
 func _on_player_opp_collision(o_box: Area2D) -> void:
 	print("area collided")
-	print("opponent area positioned at: ", o_box)
-	player_collision()
+	print("opponent area positioned at: ", o_box.position)
+	#player_collision()
 
 # function connected to body_entered signal
 func _on_player_bod_collision(o_bod: Node2D) -> void:
 	print("body collided")
-	print("opponent area positioned at: ", o_bod)
-	player_collision()
+	print("opponent body positioned at: ", o_bod.global_position)
+	player_collision(o_bod)
 
 # speed damping function, we can make this more robust later
 func eom() -> void:
@@ -64,7 +64,8 @@ func spin_frame(delta) -> void:
 # now hitbox behaviors
 # the vertical (relative) component will simply be reflected (basic momentum collision)
 # the horizontal (relative) component could be based on how the player (and enemy) is rotating
-func player_collision() -> void:
+func player_collision(o_bod: Node2D) -> void:
 	var knock = 64 # knockback - should probably be an enemy property
-	motion = -motion
+	var r_pos = global_position - o_bod.global_position
+	motion = r_pos.normalized()
 	speed = knock + speed
