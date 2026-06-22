@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://78kb7ihn2st5"]
 
+[ext_resource type="Script" uid="uid://c8jhq6sg1yldu" path="res://enemies.gd" id="1_g5tt5"]
 [ext_resource type="Texture2D" uid="uid://by16n52wvfptv" path="res://Enemie_Purple.png" id="1_gu34h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g5tt5"]
@@ -40,15 +41,17 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle",
-"speed": 5.0
+"speed": 2.5
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e0nqx"]
 radius = 14.035668
 
 [node name="Enemies" type="Node2D" unique_id=1120503382]
+script = ExtResource("1_g5tt5")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1298773801]
+gravity_scale = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D" unique_id=1075269353]
 sprite_frames = SubResource("SpriteFrames_ir4rd")
