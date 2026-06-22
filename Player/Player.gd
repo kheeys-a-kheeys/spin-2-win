@@ -9,9 +9,22 @@ var k: float = 0.01 # spring constant analog, ours is time dependant
 var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
 
 @onready var sprite = $spinor
+@onready var p_area = $"player-shape"
 
 func _ready() -> void: #set up global
 	Global.player = self
+
+# function (eventually) connected to area_entered signal
+func _on_player_opp_collision(o_box: Area2D) -> void:
+	print("area collided")
+	print("opponent area positioned at: ", o_box)
+	player_collision()
+
+# function connected to body_entered signal
+func _on_player_bod_collision(o_bod: Node2D) -> void:
+	print("body collided")
+	print("opponent area positioned at: ", o_bod)
+	player_collision()
 
 # speed damping function, we can make this more robust later
 func eom() -> void:
@@ -44,5 +57,14 @@ func set_frame() -> void:
 	elif spin == -1:
 		sprite.frame = 1
 
+# rotate sprite based on an input time step
 func spin_frame(delta) -> void:
 	sprite.rotation += omega*16*delta
+
+# now hitbox behaviors
+# the vertical (relative) component will simply be reflected (basic momentum collision)
+# the horizontal (relative) component could be based on how the player (and enemy) is rotating
+func player_collision() -> void:
+	var knock = 64 # knockback - should probably be an enemy property
+	motion = -motion
+	speed = knock + speed
