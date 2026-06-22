@@ -10,6 +10,9 @@ var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
 
 @onready var sprite = $spinor
 
+func _ready() -> void: #set up global
+	Global.player = self
+
 # speed damping function, we can make this more robust later
 func eom() -> void:
 	k += 0.1*k
