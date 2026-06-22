@@ -8,7 +8,7 @@ func _process(delta: float) -> void:
 		if Player.spin != 1:
 			Player.spin = 1
 			var point = mouse_target()
-			Player.speed = 512.0 # in pixels
+			Player.speed = 512.0 * max(1, abs(Player.omega)) # in pixels
 			Player.motion = point.normalized()
 			Player.k = 0.01
 			if Player.omega == 0:
@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 		if Player.spin != -1:
 			Player.spin = -1
 			var point = mouse_target()
-			Player.speed = 512.0 # in pixels
+			Player.speed = 512.0 * max(1, abs(Player.omega)) # in pixels
 			Player.motion = point.normalized()
 			Player.k = 0.01
 			if Player.omega == 0:
@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	var target = mouse_target()
 	Player.aligning(target)
 
-# acquire mouse position relative to the viewport center
+# return mouse position relative to the viewport center
 func mouse_target() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos - viewport_rect.get_center()

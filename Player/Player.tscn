@@ -1,11 +1,20 @@
 [gd_scene format=3 uid="uid://yihuy54mves0"]
 
 [ext_resource type="Script" uid="uid://c4qyv13tmoqsr" path="res://Player/Player.gd" id="1_q3lat"]
-[ext_resource type="Texture2D" uid="uid://c0kd0kupr4k7y" path="res://Assets/spinning.png" id="2_tok1r"]
+[ext_resource type="Texture2D" uid="uid://cf7dma1slrdre" path="res://Assets/avatar-demigod.png" id="2_q3lat"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ai34y"]
+radius = 12.0
 
 [node name="Player" type="Node2D" unique_id=1911981828]
 script = ExtResource("1_q3lat")
 
 [node name="spinor" type="Sprite2D" parent="." unique_id=208159224]
-texture = ExtResource("2_tok1r")
-hframes = 2
+position = Vector2(0, -4)
+texture = ExtResource("2_q3lat")
+hframes = 3
+
+[node name="player-shape" type="Area2D" parent="." unique_id=397626573]
+
+[node name="player-hitbox" type="CollisionShape2D" parent="player-shape" unique_id=364508369]
+shape = SubResource("CircleShape2D_ai34y")

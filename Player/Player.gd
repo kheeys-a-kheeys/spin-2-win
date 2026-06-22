@@ -39,7 +39,7 @@ func set_frame() -> void:
 	if spin == 1:
 		sprite.frame = 1
 	elif spin == -1:
-		sprite.frame = 0
+		sprite.frame = 1
 
 func spin_frame(delta) -> void:
 	sprite.rotation += omega*16*delta
