@@ -2,14 +2,8 @@ extends Node2D
 
 @onready var Player = $Player
 @onready var viewport_rect = get_viewport().get_visible_rect() # since our camera is following the player
-@onready var Enemey_scene = preload("res://enemies.tscn")
+@onready var Enemey_scene = preload("res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn") # for spawn_enemy debug command
 
-func spawn_enemy(pos, speed):
-	var enemy = Enemey_scene.instantiate()
-	enemy.position = pos
-	enemy.speed = speed
-	add_child(enemy)
-	
 func _process(delta: float) -> void:
 	if Input.is_action_just_released("spin-cw"):
 		if Player.spin != 1:
@@ -61,3 +55,10 @@ func _physics_process(delta: float) -> void:
 func mouse_target() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos - viewport_rect.get_center()
+
+# debug functions
+func spawn_enemy(pos, speed):
+	var enemy = Enemey_scene.instantiate()
+	enemy.position = pos
+	enemy.speed = speed
+	add_child(enemy)
