@@ -3,12 +3,14 @@ var stopping_dist = 10 #stopping dist prevent jitter when trying to minor correc
 var speed = 50
 var speed_max: float = 50 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
+var health = 100
 
 @onready var nav_agent = $NavigationAgent2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Area2D/AnimatedSprite2D.play("idle")
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,6 +61,15 @@ func _physics_process(delta: float) -> void:
 	# acceleration term
 	if speed < speed_max:
 		speed += 64 * delta
+		
+	#health stats
+	$Area2D/ProgressBar.value = health
+	if health == 100:
+		$Area2D/ProgressBar.visible = false
+	else:
+		$Area2D/ProgressBar.visible = true
+	
+	#health -= 10 * delta
 
 func _on_collision(opp: Area2D) -> void:
 	if opp.name == "player-shape":
