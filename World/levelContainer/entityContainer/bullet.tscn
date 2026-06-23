@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daq7r4g5vuyf0" path="res://World/levelContainer/entityContainer/frost enemy/Frost Bullet.png" id="2_2omfo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ir4rd"]
-radius = 12.0415945
+radius = 8.246211
 
 [node name="Projectile" type="Node2D" unique_id=1427524099]
 script = ExtResource("1_2omfo")
@@ -12,10 +12,12 @@ script = ExtResource("1_2omfo")
 [node name="Area2D" type="Area2D" parent="." unique_id=563538207]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1311033314]
+position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_ir4rd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1053745690]
-position = Vector2(0, 3)
+position = Vector2(0, -4.7683716e-07)
+scale = Vector2(0.703125, 0.703125)
 texture = ExtResource("2_2omfo")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

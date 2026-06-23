@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cd5xhibok0go0" path="res://Assets/craggy-dirt.png" id="1_7r8k2"]
 [ext_resource type="Script" uid="uid://co0iawfcu725s" path="res://World/levelContainer/entity_container.gd" id="2_lj5ec"]
-[ext_resource type="PackedScene" uid="uid://78kb7ihn2st5" path="res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn" id="2_w4xdt"]
+[ext_resource type="PackedScene" uid="uid://6gv6rtc8534e" path="res://World/levelContainer/entityContainer/frost enemy/frost_enemy.tscn" id="3_lj5ec"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w4xdt"]
 texture = ExtResource("1_7r8k2")
@@ -33,5 +33,4 @@ navigation_polygon = SubResource("NavigationPolygon_w4xdt")
 [node name="entityContainer" type="Node2D" parent="." unique_id=980005826]
 script = ExtResource("2_lj5ec")
 
-[node name="Enemies" parent="entityContainer" unique_id=1120503382 instance=ExtResource("2_w4xdt")]
-position = Vector2(353, 233)
+[node name="Frost Enemy" parent="entityContainer" unique_id=1205832860 instance=ExtResource("3_lj5ec")]

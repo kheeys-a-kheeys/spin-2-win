@@ -45,7 +45,8 @@ func _physics_process(delta: float) -> void:
 	#health stats
 	$Area2D/ProgressBar.value = health
 	if health == 100:
-		$Area2D/ProgressBar.visible = false
+		#$Area2D/ProgressBar.visible = false
+		pass
 	else:
 		$Area2D/ProgressBar.visible = true
 	

@@ -1,10 +1,10 @@
 extends Node2D
-var stopping_dist = 200 #stopping dist prevent jitter when trying to minor correct
+var stopping_dist = 130 #stopping dist prevent jitter when trying to minor correct
 var speed = 50
 var speed_max: float = 50 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health = 100
-var trigger_distance = 600
+var trigger_distance = 10000 #to play around later
 var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/bullet.tscn")
 var can_shoot = true
 
@@ -40,6 +40,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			shoot_projectile()
 			
+	$Area2D/ProgressBar.value = health
+	if health == 100:
+		pass
+		# $Area2D/ProgressBar.visible = false
+	else:
+		$Area2D/ProgressBar.visible = true
+			
 			
 	if Input.is_action_just_pressed("Spawn-enemy"): # test
 		shoot_projectile()
@@ -52,6 +59,6 @@ func shoot_projectile():
 		frost_projectile.target_location = Global.player.global_position
 		get_tree().current_scene.add_child(frost_projectile)
 		can_shoot = false
-		await get_tree().create_timer(1.0).timeout #easy one second pause
+		await get_tree().create_timer(0.2).timeout #easy one second pause
 		can_shoot = true
 	
