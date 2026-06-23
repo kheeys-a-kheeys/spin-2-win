@@ -1,7 +1,7 @@
 extends Node2D
 var stopping_dist = 130 #stopping dist prevent jitter when trying to minor correct
-var speed = 50
-var speed_max: float = 50 # entity should accelerate to this number
+var speed = 100
+var speed_max: float = 100 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health = 100
 var trigger_distance = 10000 #to play around later
