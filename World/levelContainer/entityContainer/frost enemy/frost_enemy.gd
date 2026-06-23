@@ -5,6 +5,7 @@ var speed_max: float = 50 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health = 100
 var trigger_distance = 600
+var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/bullet.tscn")
 
 @onready var nav_agent = $NavigationAgent2D
 
@@ -35,3 +36,12 @@ func _physics_process(delta: float) -> void:
 				print("player is out of bounds! or perhaps not instantiated?")
 		else:
 			print("too close!")
+			
+	if Input.is_action_just_pressed("Spawn-enemy"):
+		shoot_projectile()
+			
+func shoot_projectile():
+	var frost_projectile = frost_projectile_scene.instantiate()
+	get_parent().add_child(frost_projectile)
+	frost_projectile.global_position = global_position
+	
