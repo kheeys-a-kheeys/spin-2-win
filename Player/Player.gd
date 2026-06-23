@@ -13,6 +13,8 @@ var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
 
 func _ready() -> void: #set up global
 	Global.player = self
+	add_to_group("player")
+	print(get_groups())
 
 # function (eventually) connected to area_entered signal
 func _on_player_opp_collision(o_box: Area2D) -> void:

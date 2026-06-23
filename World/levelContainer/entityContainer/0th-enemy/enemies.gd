@@ -10,6 +10,7 @@ var trigger_distance = 600
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("enemies")
 	$Area2D/AnimatedSprite2D.play("idle")
 	
 

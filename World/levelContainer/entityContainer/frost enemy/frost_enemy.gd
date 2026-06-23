@@ -12,6 +12,7 @@ var frost_projectile_scene = preload("res://World/levelContainer/entityContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Area2D/AnimatedSprite2D.play("idle")
+	add_to_group("enemies")
 
 
 func _physics_process(delta: float) -> void:

@@ -29,3 +29,9 @@ func _physics_process(delta: float) -> void:
 		speed -= decay_rate * delta
 	
 	
+
+func _on_area_2d_area_entered(area: Area2D) -> void: #collision detection
+	if area.get_parent().is_in_group("enemies"):
+		print("hit enemy")
+	if area.get_parent().is_in_group("player"):
+		print("hit player")
