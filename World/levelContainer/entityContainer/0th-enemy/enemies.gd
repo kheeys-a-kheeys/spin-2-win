@@ -4,7 +4,7 @@ var speed = 50
 var speed_max: float = 50 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health = 100
-var trigger_distance = 600
+var trigger_distance = 1000
 
 @onready var nav_agent = $NavigationAgent2D
 
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 				position = position + speed*motion*delta
 				look_at(nav_agent.get_next_path_position())
 			else:
-				print("player is out of bounds! or perhaps not instantiated?")
+				print("player is out of bounds! or perhaps not instantiated? / trigger distance reached")
 		else:
 			print("too close!")
 	

@@ -33,5 +33,7 @@ func _physics_process(delta: float) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void: #collision detection
 	if area.get_parent().is_in_group("enemies"):
 		print("hit enemy")
+		queue_free()
 	if area.get_parent().is_in_group("player"):
 		print("hit player")
+		queue_free()

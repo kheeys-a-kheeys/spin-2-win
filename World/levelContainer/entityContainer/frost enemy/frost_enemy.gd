@@ -1,24 +1,26 @@
 extends Node2D
-var stopping_dist = 10 #stopping dist prevent jitter when trying to minor correct
+var stopping_dist = 200 #stopping dist prevent jitter when trying to minor correct
 var speed = 50
 var speed_max: float = 50 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health = 100
 var trigger_distance = 600
 var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/bullet.tscn")
+var can_shoot = true
 
 @onready var nav_agent = $NavigationAgent2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Area2D/AnimatedSprite2D.play("idle")
-	add_to_group("enemies")
+	add_to_group("frost")
 
 
 func _physics_process(delta: float) -> void:
 	var player_pos: Vector2 # player position
 	var relatv_pos: Vector2 # relative position between enemy and player
 	var nxtpat_pos: Vector2 # for navmesh pathfinding
+	
 	if Global.player:
 		player_pos = Global.player.global_position # find player's global position (from global)
 		look_at(player_pos) 
@@ -36,14 +38,20 @@ func _physics_process(delta: float) -> void:
 			else:
 				print("player is out of bounds! or perhaps not instantiated?")
 		else:
-			print("too close!")
+			shoot_projectile()
+			
 			
 	if Input.is_action_just_pressed("Spawn-enemy"): # test
 		shoot_projectile()
+		
 			
 func shoot_projectile():
-	var frost_projectile = frost_projectile_scene.instantiate()
-	frost_projectile.global_position = global_position
-	frost_projectile.target_location = Global.player.global_position
-	get_tree().current_scene.add_child(frost_projectile)
+	if can_shoot:
+		var frost_projectile = frost_projectile_scene.instantiate()
+		frost_projectile.global_position = global_position
+		frost_projectile.target_location = Global.player.global_position
+		get_tree().current_scene.add_child(frost_projectile)
+		can_shoot = false
+		await get_tree().create_timer(1.0).timeout #easy one second pause
+		can_shoot = true
 	
