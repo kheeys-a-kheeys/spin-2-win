@@ -50,16 +50,18 @@ radius = 20.0
 [node name="Enemies" type="Node2D" unique_id=1120503382]
 script = ExtResource("1_g5tt5")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=773714078]
+[node name="Area2D" type="Area2D" parent="." unique_id=327988685]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1075269353]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1075269353]
 sprite_frames = SubResource("SpriteFrames_ir4rd")
 animation = &"idle"
 frame_progress = 0.29122844
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1336087048]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1336087048]
 position = Vector2(2, 0)
 shape = SubResource("CircleShape2D_e0nqx")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=150895642]
 debug_enabled = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_collision"]

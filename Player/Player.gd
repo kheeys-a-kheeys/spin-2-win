@@ -16,9 +16,9 @@ func _ready() -> void: #set up global
 
 # function (eventually) connected to area_entered signal
 func _on_player_opp_collision(o_box: Area2D) -> void:
-	print("area collided")
-	print("opponent area positioned at: ", o_box.position)
-	#player_collision()
+	#print("area collided")
+	#print("opponent area positioned at: ", o_box.global_position)
+	player_collision(o_box)
 
 # function connected to body_entered signal
 func _on_player_bod_collision(o_bod: Node2D) -> void:

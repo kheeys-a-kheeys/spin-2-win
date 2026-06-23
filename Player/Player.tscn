@@ -19,4 +19,5 @@ hframes = 3
 [node name="player-hitbox" type="CollisionShape2D" parent="player-shape" unique_id=364508369]
 shape = SubResource("CircleShape2D_ai34y")
 
+[connection signal="area_entered" from="player-shape" to="." method="_on_player_opp_collision"]
 [connection signal="body_entered" from="player-shape" to="." method="_on_player_bod_collision"]
