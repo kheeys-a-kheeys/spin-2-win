@@ -35,8 +35,8 @@ func _process(delta: float) -> void:
 			Player.omega = maxi(-3, Player.omega - 1)
 		print("spin magnitude is: ", Player.omega)
 	
-	if Input.is_action_just_pressed("Spawn-enemy"): #test for spawning enemies
-		spawn_enemy(Vector2(100, 100), 50)
+	#if Input.is_action_just_pressed("Spawn-enemy"): #test for spawning enemies
+		#spawn_enemy(Vector2(100, 100), 50)
 	
 	Player.set_frame()
 	Player.spin_frame(delta)

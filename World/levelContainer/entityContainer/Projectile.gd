@@ -1,22 +1,31 @@
-extends Area2D
+extends Node2D
 var target_location: Vector2
 var speed #how fast projectile travels
 var distance #how far projectile travels
 var decay: bool #whether speed fades or no
+var decay_rate
 var direction
+var used
 
 func _ready() -> void:
 	speed = 500
-		
+	direction = (target_location - global_position).normalized()
+	distance = 1000
+	used = 0
+	decay_rate = 100
+	decay = true
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	direction = (target_location - global_position).normalized()
+	
 	global_position += direction * speed * delta
+	used += (direction * speed * delta).length()
+	if used > distance or speed < 10:
+		queue_free()
+	
+	if decay:
+		speed -= decay_rate * delta
 	
 	
-
-
-func _on_body_entered(body: Node2D) -> void:
-	print("Hit!")

@@ -37,11 +37,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			print("too close!")
 			
-	if Input.is_action_just_pressed("Spawn-enemy"):
+	if Input.is_action_just_pressed("Spawn-enemy"): # test
 		shoot_projectile()
 			
 func shoot_projectile():
 	var frost_projectile = frost_projectile_scene.instantiate()
-	get_parent().add_child(frost_projectile)
 	frost_projectile.global_position = global_position
+	frost_projectile.target_location = Global.player.global_position
+	get_tree().current_scene.add_child(frost_projectile)
 	
