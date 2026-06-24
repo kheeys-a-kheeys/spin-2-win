@@ -8,6 +8,7 @@ var count = 0
 var motion: Vector2 = Vector2(0, 0)
 var speed = 50
 var boss_shield_projectile = preload("res://World/levelContainer/entityContainer/Boss/boss_shield_projectile.tscn")
+var boss_charge = preload("res://World/levelContainer/entityContainer/Boss/charge projectile/boss_charge_ball.tscn")
 var immune: bool
 #bear in mind boss is 96 pixels radius from centre
 
@@ -46,15 +47,21 @@ func _physics_process(delta: float) -> void:
 			speed = 0
 	
 	if Input.is_action_just_pressed("Spawn-enemy"):
-		shield_attack()
+		charge_attack("fire")
 	position = position + motion * speed * delta
 	
-func shield_attack():
-	for i in range(8):
+func shield_attack(pro_num): #controls how many orbs spawn
+	for i in range(pro_num): 
 		var boss_shield = boss_shield_projectile.instantiate()
-		boss_shield.theta = (TAU / 8) * i 
-		print((TAU / 8) * i )
+		boss_shield.theta = (TAU / pro_num) * i 
+		print((TAU / pro_num) * i )
 		get_parent().add_child(boss_shield)
+
+func charge_attack(type):
+	var charge_ball = boss_charge.instantiate()
+	charge_ball.type = type
+	get_parent().add_child(charge_ball)
+
 
 func calculate_trigger_box(dimensions, centre_position):
 	#calculate two then use to see if within 

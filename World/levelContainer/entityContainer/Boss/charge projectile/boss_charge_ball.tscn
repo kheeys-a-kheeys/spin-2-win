@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cddii5mbfoetq"]
+
+[ext_resource type="Script" uid="uid://dnwkftqp4gytn" path="res://boss_charge_ball.gd" id="1_dahk5"]
+[ext_resource type="Texture2D" uid="uid://b2ki0tdyb3542" path="res://World/levelContainer/entityContainer/Boss/charge projectile/Fire Bullet.png" id="2_dahk5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dahk5"]
+radius = 11.0
+
+[node name="boss_charge_ball" type="Node2D" unique_id=53811736]
+script = ExtResource("1_dahk5")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=181447234]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1757173224]
+position = Vector2(4, 6)
+texture = ExtResource("2_dahk5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1672747608]
+shape = SubResource("CircleShape2D_dahk5")

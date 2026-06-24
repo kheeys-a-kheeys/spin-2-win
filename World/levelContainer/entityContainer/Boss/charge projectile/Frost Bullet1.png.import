@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2ki0tdyb3542"
-path="res://.godot/imported/Fire Bullet.png-dc380b91372ff6fd20157dccec11db86.ctex"
+uid="uid://pj48xu83y871"
+path="res://.godot/imported/Frost Bullet1.png-2226c19271c17209f0b1a24de7daec99.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/levelContainer/entityContainer/projectiles/Fire Bullet.png"
-dest_files=["res://.godot/imported/Fire Bullet.png-dc380b91372ff6fd20157dccec11db86.ctex"]
+source_file="res://World/levelContainer/entityContainer/Boss/charge projectile/Frost Bullet1.png"
+dest_files=["res://.godot/imported/Frost Bullet1.png-2226c19271c17209f0b1a24de7daec99.ctex"]
 
 [params]
 

@@ -51,7 +51,7 @@ script = ExtResource("1_oi8eq")
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_ir4rd")
 animation = &"idle"
-frame_progress = 0.61316276
+frame_progress = 0.5317548
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boss" unique_id=1603380532]
 scale = Vector2(3, 3)

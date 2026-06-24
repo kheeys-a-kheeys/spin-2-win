@@ -7,7 +7,7 @@ var decay_rate
 var direction
 var used
 var frost_skin = preload("res://World/levelContainer/entityContainer/frost enemy/Frost Bullet.png")
-var fire_skin = preload("res://World/levelContainer/entityContainer/projectiles/Fire Bullet.png")
+var fire_skin = preload("res://World/levelContainer/entityContainer/Boss/charge projectile/Fire Bullet.png")
 var type: String #fire or frost
 
 func _ready() -> void:
