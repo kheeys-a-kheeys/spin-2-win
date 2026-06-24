@@ -12,6 +12,7 @@ var trigger_distance = 1000
 func _ready() -> void:
 	add_to_group("enemies")
 	$Area2D/AnimatedSprite2D.play("idle")
+
 	
 
 

@@ -12,6 +12,13 @@ script = ExtResource("1_y6flb")
 
 [node name="Level-Concept" parent="levelContainer" unique_id=1865727607 instance=ExtResource("2_mlekv")]
 
+[node name="Debug" type="ColorRect" parent="levelContainer" unique_id=375374108]
+offset_left = 101.0
+offset_top = -4.0
+offset_right = 601.0
+offset_bottom = 496.0
+color = Color(1, 1, 1, 0.1882353)
+
 [node name="Player" parent="." unique_id=1911981828 instance=ExtResource("1_folwd")]
 position = Vector2(60, 69)
 

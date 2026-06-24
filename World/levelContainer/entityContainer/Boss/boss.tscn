@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bi6weljb1inyh"]
 
+[ext_resource type="Script" uid="uid://88dosd8mj83n" path="res://World/levelContainer/entityContainer/Boss/boss.gd" id="1_oi8eq"]
 [ext_resource type="Texture2D" uid="uid://chf1vtkufvm86" path="res://World/levelContainer/entityContainer/Boss/Boss.png" id="1_w8umi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oi8eq"]
@@ -42,6 +43,7 @@ animations = [{
 radius = 24.020824
 
 [node name="Boss" type="Node2D" unique_id=1949034661]
+script = ExtResource("1_oi8eq")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2022450678]
 
@@ -49,8 +51,10 @@ radius = 24.020824
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_ir4rd")
 animation = &"idle"
-frame_progress = 0.94018286
+frame_progress = 0.7630624
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1603380532]
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_f7dj6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=114743962]

@@ -1,0 +1,2 @@
+enemy dimension = 64 x 64
+scaled up: 192
