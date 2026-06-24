@@ -92,8 +92,12 @@ func ability_shoot_projectile(delta: float):
 
 func shoot_projectile() -> void:
 	var frost_projectile = frost_projectile_scene.instantiate()
+	#offset projectile
+	var direction = (global_position - Global.player.global_position).normalized()
+	var initial = global_position - direction * 25
+	
 	frost_projectile.type = "frost"
-	frost_projectile.global_position = global_position
+	frost_projectile.global_position = initial
 	frost_projectile.target_location = Global.player.global_position
 	get_tree().current_scene.add_child(frost_projectile)
 

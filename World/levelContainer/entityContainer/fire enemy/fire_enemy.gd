@@ -92,8 +92,12 @@ func ability_shoot_projectile(delta: float):
 
 func shoot_projectile() -> void:
 	var fire_projectile = fire_projectile_scene.instantiate()
+	#offset the projectile slightly infront
+	var direction = (global_position - Global.player.global_position).normalized()
+	var initial = global_position - direction * 25
+	
 	fire_projectile.type = "fire"
-	fire_projectile.global_position = global_position
+	fire_projectile.global_position = initial
 	fire_projectile.target_location = Global.player.global_position
 	get_tree().current_scene.add_child(fire_projectile)
 

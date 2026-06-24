@@ -43,7 +43,7 @@ script = ExtResource("1_104i6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy-fire" unique_id=641888813]
 sprite_frames = SubResource("SpriteFrames_ir4rd")
-frame_progress = 0.16002437
+frame_progress = 0.323241
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy-fire" unique_id=1167989266]
 position = Vector2(2, 0)
