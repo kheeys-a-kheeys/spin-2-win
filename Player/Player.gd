@@ -120,11 +120,17 @@ func damage_machine(o_box: Area2D) -> void:
 	
 	# deal damage if element of projectile and player differ
 	# what happens when they are aligned is already handled by the projectile logic :p
-	if (o_box.name == "projectile-fire" && sign(spin) == 1) || (o_box.name == "projectile-frost" && sign(spin) == -1):
-		# do nothing
-		pass
-	elif o_box.name == "projectile-fire" || o_box.name == "projectile-frost":
-		damage_received(o_box)
+	if o_box.name == "projectile-frost":
+			if (o_box.get_parent().type == "fire" && sign(spin) == 1) || (o_box.get_parent().type == "frost" && sign(spin) == -1):
+				# do nothing
+				pass
+			elif o_box.get_parent().type == "fire" || o_box.get_parent().type == "frost":
+				damage_received(o_box)
+	#if (o_box.name == "projectile-fire" && sign(spin) == 1) || (o_box.name == "projectile-frost" && sign(spin) == -1):
+		## do nothing
+		#pass
+	#elif o_box.name == "projectile-fire" || o_box.name == "projectile-frost":
+		#damage_received(o_box)
 
 # what to do when actually damaged
 func damage_received(o_box: Area2D) -> void:

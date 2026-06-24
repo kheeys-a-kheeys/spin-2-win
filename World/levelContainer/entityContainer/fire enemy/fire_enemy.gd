@@ -6,7 +6,7 @@ var speed_max: float = 100 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
 var health: int = 100
 var trigger_distance = 10000 #to play around later
-var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/projectiles/bullet.tscn")
+var fire_projectile_scene = preload("res://World/levelContainer/entityContainer/projectiles/bullet.tscn")
 var can_shoot = true
 
 # attack properties
@@ -18,7 +18,7 @@ var proj_ct: int = 0 # number of projectiles the enemy has fired in one attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"enemy-frost"/AnimatedSprite2D.play("idle")
+	$"enemy-fire/AnimatedSprite2D".play("idle")
 	add_to_group("frost")
 
 
@@ -47,12 +47,12 @@ func _physics_process(delta: float) -> void:
 			damp()
 			ability_shoot_projectile(delta)
 	
-	$"enemy-frost"/ProgressBar.value = health
+	$"enemy-fire/ProgressBar".value = health
 	if health == 100:
 		pass
 		# $Area2D/ProgressBar.visible = false
 	else:
-		$"enemy-frost"/ProgressBar.visible = true
+		$"enemy-fire/ProgressBar".visible = true
 	
 	# dynamics term
 	position = position + speed*motion*delta
@@ -91,13 +91,14 @@ func ability_shoot_projectile(delta: float):
 	
 
 func shoot_projectile() -> void:
-	var frost_projectile = frost_projectile_scene.instantiate()
-	frost_projectile.type = "frost"
-	frost_projectile.global_position = global_position
-	frost_projectile.target_location = Global.player.global_position
-	get_tree().current_scene.add_child(frost_projectile)
+	var fire_projectile = fire_projectile_scene.instantiate()
+	fire_projectile.type = "fire"
+	fire_projectile.global_position = global_position
+	fire_projectile.target_location = Global.player.global_position
+	get_tree().current_scene.add_child(fire_projectile)
 
-func _on_area_entered(o_box: Area2D) -> void:
+	
+func _on_enemyfire_area_entered(o_box: Area2D) -> void:
 	damage_machine(o_box)
 
 # copy pasted from the player script
@@ -110,7 +111,7 @@ func damage_machine(o_box: Area2D) -> void:
 	# deal damage on attack if enemy is opposite element to player
 	# this enemy is frost, soooo
 	if o_box.name == "player-shape":
-		if sign(spin) != -1:
+		if sign(spin) == -1:
 			damage_received(player_ref.damage)
 		else: # just bounce off attack
 			bounce()
