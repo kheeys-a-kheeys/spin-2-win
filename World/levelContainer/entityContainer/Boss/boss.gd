@@ -41,15 +41,17 @@ func _physics_process(delta: float) -> void:
 				speed = 0
 		else:
 			speed = 0
-		
-	position = position + motion * speed * delta
 	
 	if Input.is_action_just_pressed("Spawn-enemy"):
-		for i in range(8):
-			var boss_shield = boss_shield_projectile.instantiate()
-			boss_shield.theta = (TAU / 8) * i 
-			print((TAU / 8) * i )
-			get_parent().add_child(boss_shield)
+		shield_attack()
+	position = position + motion * speed * delta
+	
+func shield_attack():
+	for i in range(8):
+		var boss_shield = boss_shield_projectile.instantiate()
+		boss_shield.theta = (TAU / 8) * i 
+		print((TAU / 8) * i )
+		get_parent().add_child(boss_shield)
 
 func calculate_trigger_box(dimensions, centre_position):
 	#calculate two then use to see if within 
