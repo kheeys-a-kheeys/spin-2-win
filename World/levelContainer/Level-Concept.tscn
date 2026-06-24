@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cd5xhibok0go0" path="res://Assets/craggy-dirt.png" id="1_7r8k2"]
 [ext_resource type="Script" uid="uid://co0iawfcu725s" path="res://World/levelContainer/entity_container.gd" id="2_lj5ec"]
-[ext_resource type="PackedScene" uid="uid://bijijsvvxqmxa" path="res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn" id="3_lj5ec"]
+[ext_resource type="PackedScene" uid="uid://bi6weljb1inyh" path="res://World/levelContainer/entityContainer/Boss/boss.tscn" id="3_lj5ec"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w4xdt"]
 texture = ExtResource("1_7r8k2")
@@ -33,4 +33,5 @@ navigation_polygon = SubResource("NavigationPolygon_w4xdt")
 [node name="entityContainer" type="Node2D" parent="." unique_id=980005826]
 script = ExtResource("2_lj5ec")
 
-[node name="fire_enemy" parent="entityContainer" unique_id=1959784128 instance=ExtResource("3_lj5ec")]
+[node name="Boss" parent="entityContainer" unique_id=1949034661 instance=ExtResource("3_lj5ec")]
+position = Vector2(351, 246)
