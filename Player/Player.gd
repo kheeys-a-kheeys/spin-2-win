@@ -12,7 +12,8 @@ var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
 var health: int = 3
 var damage: int = 100 # damage dealt to enemies
 var invulf: int = 0 # count down i-frames after receiving damage
-var invulf_max: int = 60 # max i-frame count
+var invulf_max: int = 60 # max i-frame count\
+var points: = 0 #players gains points from different interactiosn including killing enemies
 
 @onready var sprite = $spinor
 @onready var fire_aura = $"spinor-fire"

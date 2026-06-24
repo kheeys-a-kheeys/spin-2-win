@@ -89,14 +89,6 @@ func ability_shoot_projectile(delta: float):
 			proj_ct = 0
 			proj_cd = 2
 	
-	#if can_shoot:
-		#var frost_projectile = frost_projectile_scene.instantiate()
-		#frost_projectile.global_position = global_position
-		#frost_projectile.target_location = Global.player.global_position
-		#get_tree().current_scene.add_child(frost_projectile)
-		#can_shoot = false
-		#await get_tree().create_timer(0.2).timeout #easy one second pause
-		#can_shoot = true
 
 func shoot_projectile() -> void:
 	var frost_projectile = frost_projectile_scene.instantiate()
@@ -131,8 +123,10 @@ func damage_received(damage: int) -> void:
 	
 	# death state
 	if health <= 0:
-		print("enemy has died! figure out how to despawn!")
 		health = 0
+		Global.player.points += 1
+		#queue death animation
+		queue_free()
 
 # bouncing behavior when colliding with a given hitbox
 # since enemies are controlled with a constant speed (instead of an impulse)
