@@ -1,18 +1,24 @@
 extends Node2D
 var stopping_dist = 130 #stopping dist prevent jitter when trying to minor correct
+var k: float = 0.01 # spring constant analog, ours is time dependant
 var speed = 100
 var speed_max: float = 100 # entity should accelerate to this number
 var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
-var health = 100
+var health: int = 100
 var trigger_distance = 10000 #to play around later
 var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/bullet.tscn")
 var can_shoot = true
+
+# attack properties
+var proj_cd: float = 2 # cooldown on projectile attack
+var proj_ar: float = 0.2 # fire rate of projectiles
+var proj_ct: int = 0 # number of projectiles the enemy has fired in one attack
 
 @onready var nav_agent = $NavigationAgent2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Area2D/AnimatedSprite2D.play("idle")
+	$"enemy-frost"/AnimatedSprite2D.play("idle")
 	add_to_group("frost")
 
 
@@ -33,32 +39,107 @@ func _physics_process(delta: float) -> void:
 				nxtpat_pos = nav_agent.get_next_path_position()
 				nxtpat_pos = nxtpat_pos - global_position # shift frame
 				motion = nxtpat_pos.normalized()
-				position = position + speed*motion*delta
+				#position = position + speed*motion*delta
 				look_at(nav_agent.get_next_path_position())
 			else:
 				print("player is out of bounds! or perhaps not instantiated?")
 		else:
-			shoot_projectile()
-			
-	$Area2D/ProgressBar.value = health
+			damp()
+			ability_shoot_projectile(delta)
+	
+	$"enemy-frost"/ProgressBar.value = health
 	if health == 100:
 		pass
 		# $Area2D/ProgressBar.visible = false
 	else:
-		$Area2D/ProgressBar.visible = true
-			
-			
-	if Input.is_action_just_pressed("Spawn-enemy"): # test
-		shoot_projectile()
-		
-			
-func shoot_projectile():
-	if can_shoot:
-		var frost_projectile = frost_projectile_scene.instantiate()
-		frost_projectile.global_position = global_position
-		frost_projectile.target_location = Global.player.global_position
-		get_tree().current_scene.add_child(frost_projectile)
-		can_shoot = false
-		await get_tree().create_timer(0.2).timeout #easy one second pause
-		can_shoot = true
+		$"enemy-frost"/ProgressBar.visible = true
 	
+	# dynamics term
+	position = position + speed*motion*delta
+	if speed < 0:
+		damp()
+	else:
+		if speed < speed_max:
+			speed += 64 * delta
+	
+	if Input.is_action_just_pressed("Spawn-enemy"): # test
+		ability_shoot_projectile(delta)
+
+# speed damping function, it is was it is
+func damp() -> void:
+	k += 0.1*k
+	k = min(1, k)
+	speed = (1 - k)*speed
+
+func ability_shoot_projectile(delta: float):
+	if proj_ct < 5: # limit number of projectiles launced in one volley
+		can_shoot = true
+		if proj_ar < 0: # set a pause between each projectile shot
+			shoot_projectile()
+			proj_ct += 1
+			proj_ar = 0.2
+		else:
+			proj_ar += -delta
+	else:
+		if proj_cd > 0: # set cooldown after 5 projectiles launched
+			can_shoot = false
+			proj_cd += -delta
+		else:
+			can_shoot = true
+			proj_ct = 0
+			proj_cd = 2
+	
+	#if can_shoot:
+		#var frost_projectile = frost_projectile_scene.instantiate()
+		#frost_projectile.global_position = global_position
+		#frost_projectile.target_location = Global.player.global_position
+		#get_tree().current_scene.add_child(frost_projectile)
+		#can_shoot = false
+		#await get_tree().create_timer(0.2).timeout #easy one second pause
+		#can_shoot = true
+
+func shoot_projectile() -> void:
+	var frost_projectile = frost_projectile_scene.instantiate()
+	frost_projectile.global_position = global_position
+	frost_projectile.target_location = Global.player.global_position
+	get_tree().current_scene.add_child(frost_projectile)
+
+func _on_area_entered(o_box: Area2D) -> void:
+	damage_machine(o_box)
+
+# copy pasted from the player script
+# func to set the enemy's damage state based on a number of conditions
+# again, o_box names should probably be in a dictionary
+func damage_machine(o_box: Area2D) -> void:
+	var player_ref = Global.player
+	var spin = player_ref.spin
+	
+	# deal damage on attack if enemy is opposite element to player
+	# this enemy is frost, soooo
+	if o_box.name == "player-shape":
+		if sign(spin) != -1:
+			damage_received(player_ref.damage)
+		else: # just bounce off attack
+			bounce()
+
+
+# what to do when actually damaged
+func damage_received(damage: int) -> void:
+	# damage
+	health += -damage # this enemy dies in one hit
+	bounce()
+	
+	# death state
+	if health <= 0:
+		print("enemy has died! figure out how to despawn!")
+		health = 0
+
+# bouncing behavior when colliding with a given hitbox
+# since enemies are controlled with a constant speed (instead of an impulse)
+# it's easier to just make the enemy's speed negative,
+# apply damping to negative speed,
+# then apply acceleration to return it to max speed
+func bounce() -> void:
+	k = 0.01
+	var knock = 512 # knockback - should probably be a function input
+	speed = -knock

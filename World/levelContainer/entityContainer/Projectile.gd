@@ -35,5 +35,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void: #collision detection
 		print("hit enemy")
 		queue_free()
 	if area.get_parent().is_in_group("player"):
-		print("hit player")
-		queue_free()
+		var player_ref = Global.player
+		if player_ref.spin < 0: # make sure the bullet element matches this!
+			print("the projectile phases through!")
+		else:
+			print("hit player")
+			queue_free()

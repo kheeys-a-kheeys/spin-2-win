@@ -18,7 +18,6 @@ func _process(delta: float) -> void:
 				Player.omega = maxi(1, -Player.omega - 1)
 		else:
 			Player.omega = mini(3, Player.omega + 1)
-		print("spin magnitude is: ", Player.omega)
 	
 	if Input.is_action_just_released("spin-ccw"):
 		if Player.spin != -1:
@@ -33,7 +32,6 @@ func _process(delta: float) -> void:
 				Player.omega = mini(-1, -Player.omega + 1)
 		else:
 			Player.omega = maxi(-3, Player.omega - 1)
-		print("spin magnitude is: ", Player.omega)
 	
 	#if Input.is_action_just_pressed("Spawn-enemy"): #test for spawning enemies
 		#spawn_enemy(Vector2(100, 100), 50)
@@ -49,7 +47,8 @@ func _physics_process(delta: float) -> void:
 	Player.eom()
 	
 	var target = mouse_target()
-	Player.aligning(target)
+	if Player.spin != 0:
+		Player.aligning(target)
 
 # return mouse position relative to the viewport center
 func mouse_target() -> Vector2:

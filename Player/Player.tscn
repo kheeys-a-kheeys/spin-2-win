@@ -2,12 +2,27 @@
 
 [ext_resource type="Script" uid="uid://c4qyv13tmoqsr" path="res://Player/Player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://cf7dma1slrdre" path="res://Assets/avatar-demigod.png" id="2_q3lat"]
+[ext_resource type="Texture2D" uid="uid://hqxdme6uuepp" path="res://Assets/fire-aura.png" id="3_ddoul"]
+[ext_resource type="Texture2D" uid="uid://bebrv4nmp6cnv" path="res://Assets/frost-aura.png" id="4_8g4oa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ai34y"]
 radius = 12.0
 
 [node name="Player" type="Node2D" unique_id=1911981828]
 script = ExtResource("1_q3lat")
+
+[node name="spinor-fire" type="Sprite2D" parent="." unique_id=1856100918]
+visible = false
+position = Vector2(0, -3)
+texture = ExtResource("3_ddoul")
+hframes = 2
+
+[node name="spinor-frost" type="Sprite2D" parent="." unique_id=1502630734]
+visible = false
+position = Vector2(0, -2)
+texture = ExtResource("4_8g4oa")
+hframes = 2
+frame = 1
 
 [node name="spinor" type="Sprite2D" parent="." unique_id=208159224]
 position = Vector2(0, -4)

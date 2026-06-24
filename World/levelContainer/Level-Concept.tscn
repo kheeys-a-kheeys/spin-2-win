@@ -14,9 +14,9 @@ tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_w4xdt")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_w4xdt"]
-vertices = PackedVector2Array(1166.0391, 14.0625, 1168.9531, 654.96875, 769.53906, 275.09375, 645.65625, 155.71094, 620.96094, 382.82813, 14.09375, 652.02344, 19.898438, 20.9375, 505.9922, 231.78906)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(4, 1, 5), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(6, 0, 3), PackedInt32Array(7, 6, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(10, 11, 644, 168, 521, 235), PackedVector2Array(1176, 4, 644, 168, 754, 274), PackedVector2Array(10, 11, 1176, 4, 644, 168), PackedVector2Array(10, 11, 4, 662, 521, 235), PackedVector2Array(4, 662, 521, 235, 623, 369), PackedVector2Array(1179, 665, 754, 274, 623, 369), PackedVector2Array(4, 662, 623, 369, 1179, 665), PackedVector2Array(1176, 4, 1179, 665, 754, 274)])
+vertices = PackedVector2Array(1164.0703, 651, 19.976563, 651.9922, 19.007813, 17.96875, 1168.9219, 15.0234375)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9, 8, 1179, 5, 1174, 661, 10, 662)])
 
 [node name="Level-Concept" type="Node2D" unique_id=1865727607]
 
