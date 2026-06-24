@@ -5,6 +5,8 @@ var type:String #frost or fire
 var fire_png = preload("res://World/levelContainer/entityContainer/Boss/charge projectile/Fire Bullet.png")
 var frost_png = preload("res://World/levelContainer/entityContainer/Boss/charge projectile/Frost Bullet1.png")
 var boss_reff
+var scale_base
+var scale_max
 
 func _ready() -> void:
 	if type == "fire":
@@ -16,7 +18,10 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+#broken for now
 func _physics_process(delta: float) -> void:
 	boss_reff = Global.boss
 	var direction = Vector2.RIGHT.rotated(boss_reff.rotation)
-	global_position = global_position + direction 
+	global_position = Global.boss.global_position + direction * 200
+	rotation = boss_reff.rotation
