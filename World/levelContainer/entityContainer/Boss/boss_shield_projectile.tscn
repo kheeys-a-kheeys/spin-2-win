@@ -9,13 +9,13 @@ radius = 12.0
 [node name="Boss-Shield-Projectile" type="Node2D" unique_id=1654992578]
 script = ExtResource("1_hw8w4")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=644914207]
+[node name="boss-projectile" type="Area2D" parent="." unique_id=644914207]
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1504278190]
+[node name="Sprite2D" type="Sprite2D" parent="boss-projectile" unique_id=1504278190]
 position = Vector2(0, 5)
 texture = ExtResource("1_qnlvl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1581145685]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss-projectile" unique_id=1581145685]
 shape = SubResource("CircleShape2D_ir4rd")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="boss-projectile" to="." method="_on_area_2d_area_entered"]

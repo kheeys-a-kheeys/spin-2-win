@@ -13,7 +13,7 @@ var boss_shield_projectile = preload("res://World/levelContainer/entityContainer
 @onready var nav_agent = $NavigationAgent2D
 func _ready() -> void:
 	Global.boss = self
-	$Area2D/AnimatedSprite2D.play("idle")
+	$boss/AnimatedSprite2D.play("idle")
 	calculate_trigger_box(trigger_box, global_position)
 	in_reach = 150
 

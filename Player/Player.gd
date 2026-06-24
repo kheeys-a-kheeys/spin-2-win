@@ -118,6 +118,9 @@ func damage_machine(o_box: Area2D) -> void:
 		print("attack bounced!")
 		bounce(o_box, speed)
 	
+	if o_box.name == "boss":
+		bounce(o_box, speed)
+	
 	# deal damage if element of projectile and player differ
 	# what happens when they are aligned is already handled by the projectile logic :p
 	if o_box.name == "projectile-frost":
@@ -126,6 +129,8 @@ func damage_machine(o_box: Area2D) -> void:
 				pass
 			elif o_box.get_parent().type == "fire" || o_box.get_parent().type == "frost":
 				damage_received(o_box)
+	if o_box.name == "boss-projectile":
+		damage_received(o_box)
 	#if (o_box.name == "projectile-fire" && sign(spin) == 1) || (o_box.name == "projectile-frost" && sign(spin) == -1):
 		## do nothing
 		#pass

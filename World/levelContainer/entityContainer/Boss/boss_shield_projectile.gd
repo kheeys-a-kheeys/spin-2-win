@@ -39,7 +39,6 @@ func _physics_process(delta: float) -> void:
 	if explode:
 		if explode_speed < max_explode_speed:
 			explode_speed += acceleration * delta
-			print(explode_speed)
 		radius += explode_speed * delta
 
 

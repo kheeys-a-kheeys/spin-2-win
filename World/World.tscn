@@ -13,6 +13,7 @@ script = ExtResource("1_y6flb")
 [node name="Level-Concept" parent="levelContainer" unique_id=1865727607 instance=ExtResource("2_mlekv")]
 
 [node name="Debug" type="ColorRect" parent="levelContainer" unique_id=375374108]
+visible = false
 offset_left = 101.0
 offset_top = -4.0
 offset_right = 601.0

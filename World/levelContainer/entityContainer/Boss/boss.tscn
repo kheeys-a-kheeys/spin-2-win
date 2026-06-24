@@ -45,15 +45,15 @@ radius = 24.020824
 [node name="Boss" type="Node2D" unique_id=1949034661]
 script = ExtResource("1_oi8eq")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2022450678]
+[node name="boss" type="Area2D" parent="." unique_id=2022450678]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=1669628705]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="boss" unique_id=1669628705]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_ir4rd")
 animation = &"idle"
-frame_progress = 0.7630624
+frame_progress = 0.3699069
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1603380532]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss" unique_id=1603380532]
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_f7dj6")
 
