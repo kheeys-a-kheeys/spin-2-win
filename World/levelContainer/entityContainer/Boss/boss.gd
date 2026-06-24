@@ -8,6 +8,7 @@ var count = 0
 var motion: Vector2 = Vector2(0, 0)
 var speed = 50
 var boss_shield_projectile = preload("res://World/levelContainer/entityContainer/Boss/boss_shield_projectile.tscn")
+var immune: bool
 #bear in mind boss is 96 pixels radius from centre
 
 @onready var nav_agent = $NavigationAgent2D
@@ -16,6 +17,8 @@ func _ready() -> void:
 	$boss/AnimatedSprite2D.play("idle")
 	calculate_trigger_box(trigger_box, global_position)
 	in_reach = 150
+	immune = false
+	
 
 
 
