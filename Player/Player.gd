@@ -133,6 +133,7 @@ func damage_received(o_box: Area2D) -> void:
 			rotate(-PI/2)
 		print("damage received!")
 		health += -1 # for now, all enemies should deal 1 damage
+		SignalBus.health_update.emit(health)
 		bounce(o_box, 256)
 		invulf = invulf_max
 	

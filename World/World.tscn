@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://yihuy54mves0" path="res://Player/Player.tscn" id="1_folwd"]
 [ext_resource type="Script" uid="uid://csair6k81qees" path="res://World/World.gd" id="1_y6flb"]
 [ext_resource type="PackedScene" uid="uid://37ncah3slf3a" path="res://World/levelContainer/Level-Concept.tscn" id="2_mlekv"]
+[ext_resource type="PackedScene" uid="uid://fvpdoc2oh0c" path="res://GUI/HealthBar/HealthBar.tscn" id="4_il6x7"]
 
 [node name="World" type="Node2D" unique_id=2051603053]
 script = ExtResource("1_y6flb")
@@ -15,3 +16,8 @@ script = ExtResource("1_y6flb")
 position = Vector2(60, 69)
 
 [node name="player-camera" type="Camera2D" parent="Player" unique_id=491484906]
+zoom = Vector2(2, 2)
+
+[node name="GUI" type="Node2D" parent="." unique_id=135750076]
+
+[node name="HealthBar" parent="GUI" unique_id=532794606 instance=ExtResource("4_il6x7")]
