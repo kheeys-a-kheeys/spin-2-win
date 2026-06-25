@@ -21,3 +21,5 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boss-barrier" unique_id=68552690]
 position = Vector2(1.5, 73.5)
 shape = SubResource("RectangleShape2D_ai34y")
+
+[connection signal="area_entered" from="boss-barrier" to="." method="_on_bossbarrier_area_entered"]

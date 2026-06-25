@@ -126,6 +126,7 @@ func damage_machine(o_box: Area2D) -> void:
 				bounce(o_box, speed)
 			else:
 				damage_received(o_box)
+				bounce(o_box, speed)
 		else: # deal damage to boss
 			bounce(o_box, speed)
 	

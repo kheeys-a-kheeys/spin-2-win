@@ -1,6 +1,6 @@
 extends Node2D
 var health
-var health_max: int = 400
+var health_max: int = 2000
 var trigger_box: = 500 #pixels for length, bounding box for enemy is created by x * x pixels wide, enemy is only activated if player is in the box
 var in_reach: int #pixels, if in reach, boss can attack, similar to stopping distance
 var left_down: Vector2

@@ -57,3 +57,27 @@ func damp() -> void:
 	k += 0.05*k
 	k = min(1, k)
 	speed = (1 - k)*speed
+
+
+func _on_bossbarrier_area_entered(area: Area2D) -> void: #phase through if same element, else destroy
+	if area.get_parent().is_in_group("enemies"):
+		print("hit enemy")
+		boss_reff.immune = false
+		queue_free()
+	if area.get_parent().is_in_group("player"):
+		var player_ref = Global.player
+		if type == "frost":
+			print("de")
+			if player_ref.spin < 0: # make sure the bullet element matches this!
+				print("the projectile phases through!")
+			else:
+				print("hit player")
+				boss_reff.immune = false
+				queue_free()
+		else: #fire case
+			if player_ref.spin > 0: # make sure the bullet element matches this!
+				print("the projectile phases through!")
+			else:
+				print("hit player")
+				boss_reff.immune = false
+				queue_free()
