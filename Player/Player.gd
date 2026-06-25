@@ -140,12 +140,15 @@ func damage_machine(o_box: Area2D) -> void:
 				damage_received(o_box)
 	if o_box.name == "boss-projectile":
 		damage_received(o_box)
-	#if (o_box.name == "projectile-fire" && sign(spin) == 1) || (o_box.name == "projectile-frost" && sign(spin) == -1):
-		## do nothing
-		#pass
-	#elif o_box.name == "projectile-fire" || o_box.name == "projectile-frost":
-		#damage_received(o_box)
-
+	
+	#boss barrier
+	#same as above
+	if o_box.name == "boss-barrier":
+		if (o_box.get_parent().type == "frost" and sign(spin) == -1) || (o_box.get_parent().type == "fire" and sign(spin) == 1): 
+			#bounce off the barrier
+			bounce(o_box, speed)
+		elif o_box.get_parent().type == "fire" || o_box.get_parent().type == "frost":
+			damage_received(o_box)
 # what to do when actually damaged
 func damage_received(o_box: Area2D) -> void:
 	if invulf == 0: # if i-frames aren't active
