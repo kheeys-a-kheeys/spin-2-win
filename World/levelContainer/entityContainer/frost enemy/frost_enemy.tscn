@@ -1,7 +1,16 @@
 [gd_scene format=3 uid="uid://6gv6rtc8534e"]
 
 [ext_resource type="Script" uid="uid://cbkdsshxkoopi" path="res://World/levelContainer/entityContainer/frost enemy/frost_enemy.gd" id="1_jd6as"]
+[ext_resource type="Texture2D" uid="uid://buxi7but7acrv" path="res://Assets/ElementalEnemy.png" id="2_041js"]
 [ext_resource type="Texture2D" uid="uid://bkg0tqp6hog1c" path="res://World/levelContainer/entityContainer/frost enemy/ElementEnemy.png" id="2_bq3q5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f4kk"]
+atlas = ExtResource("2_041js")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3sxl"]
+atlas = ExtResource("2_041js")
+region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_041js"]
 atlas = ExtResource("2_bq3q5")
@@ -13,10 +22,28 @@ region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jd6as"]
 animations = [{
-"frames": [],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f4kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3sxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f4kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3sxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f4kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3sxl")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -48,7 +75,9 @@ script = ExtResource("1_jd6as")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy-frost" unique_id=1422283866]
 sprite_frames = SubResource("SpriteFrames_jd6as")
-animation = &"idle"
+animation = &"death"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy-frost" unique_id=674723558]
 position = Vector2(1, 3)

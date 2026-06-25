@@ -2,6 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://bkg0tqp6hog1c" path="res://World/levelContainer/entityContainer/frost enemy/ElementEnemy.png" id="1_02i8t"]
 [ext_resource type="Script" uid="uid://1c2ur4ev37ea" path="res://World/levelContainer/entityContainer/fire enemy/fire_enemy.gd" id="1_104i6"]
+[ext_resource type="Texture2D" uid="uid://buxi7but7acrv" path="res://Assets/ElementalEnemy.png" id="2_urybm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg865"]
+atlas = ExtResource("2_urybm")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sk7n"]
+atlas = ExtResource("2_urybm")
+region = Rect2(0, 256, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_104i6"]
 atlas = ExtResource("1_02i8t")
@@ -15,13 +24,36 @@ region = Rect2(0, 192, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vg865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sk7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sk7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg865")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sk7n")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_104i6")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_urybm")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"idle",
 "speed": 2.5
 }]
 
@@ -43,7 +75,7 @@ script = ExtResource("1_104i6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy-fire" unique_id=641888813]
 sprite_frames = SubResource("SpriteFrames_ir4rd")
-frame_progress = 0.323241
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy-fire" unique_id=1167989266]
 position = Vector2(2, 0)

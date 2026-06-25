@@ -8,11 +8,19 @@ var health: int = 100
 var trigger_distance = 10000 #to play around later
 var frost_projectile_scene = preload("res://World/levelContainer/entityContainer/projectiles/bullet.tscn")
 var can_shoot = true
+var death = false
 
 # attack properties
 var proj_cd: float = 2 # cooldown on projectile attack
 var proj_ar: float = 0.2 # fire rate of projectiles
 var proj_ct: int = 0 # number of projectiles the enemy has fired in one attack
+
+
+#boundaries
+var left_boundary: float
+var right_boundary: float
+var up_boundary: float
+var down_boundary: float
 
 @onready var nav_agent = $NavigationAgent2D
 
@@ -26,6 +34,11 @@ func _physics_process(delta: float) -> void:
 	var player_pos: Vector2 # player position
 	var relatv_pos: Vector2 # relative position between enemy and player
 	var nxtpat_pos: Vector2 # for navmesh pathfinding
+	
+	left_boundary = Global.world_boundaries_left
+	right_boundary = Global.world_boundaries_right
+	up_boundary = Global.world_boundaries_up
+	down_boundary = Global.world_boundaries_down
 	
 	if Global.player:
 		player_pos = Global.player.global_position # find player's global position (from global)
@@ -62,6 +75,21 @@ func _physics_process(delta: float) -> void:
 		if speed < speed_max:
 			speed += 64 * delta
 	
+	#check wall collisions
+	if global_position.x < left_boundary:
+		global_position.x = left_boundary + 0.2
+		motion.x = abs(motion.x)
+	elif global_position.x > right_boundary:
+		global_position.x = right_boundary - 0.2
+		motion.x = -abs(motion.x)
+	#y axis is inverted
+	elif global_position.y < up_boundary:
+		global_position.y = up_boundary + 0.2
+		motion.y = abs(motion.y)
+	elif global_position.y > down_boundary:
+		global_position.y = down_boundary - 0.2
+		motion.y = -abs(motion.y)
+	
 	if Input.is_action_just_pressed("Spawn-enemy"): # test
 		ability_shoot_projectile(delta)
 
@@ -91,15 +119,16 @@ func ability_shoot_projectile(delta: float):
 	
 
 func shoot_projectile() -> void:
-	var frost_projectile = frost_projectile_scene.instantiate()
-	#offset projectile
-	var direction = (global_position - Global.player.global_position).normalized()
-	var initial = global_position - direction * 25
-	
-	frost_projectile.type = "frost"
-	frost_projectile.global_position = initial
-	frost_projectile.target_location = Global.player.global_position
-	get_tree().current_scene.add_child(frost_projectile)
+	if not death:
+		var frost_projectile = frost_projectile_scene.instantiate()
+		#offset projectile
+		var direction = (global_position - Global.player.global_position).normalized()
+		var initial = global_position - direction * 25
+		
+		frost_projectile.type = "frost"
+		frost_projectile.global_position = initial
+		frost_projectile.target_location = Global.player.global_position
+		get_tree().current_scene.add_child(frost_projectile)
 
 func _on_area_entered(o_box: Area2D) -> void:
 	damage_machine(o_box)
@@ -130,7 +159,9 @@ func damage_received(damage: int) -> void:
 	if health <= 0:
 		health = 0
 		Global.player.points += 1
-		#queue death animation
+		death = true
+		$"enemy-frost/AnimatedSprite2D".play("death")
+		await $"enemy-frost/AnimatedSprite2D".animation_finished
 		queue_free()
 
 # bouncing behavior when colliding with a given hitbox

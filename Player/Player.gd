@@ -39,15 +39,20 @@ func _physics_process(delta: float) -> void:
 	down_boundary = Global.world_boundaries_down
 	
 	#check player out of bounds
+	#copy this for everything that needs to avoid walls
 	if global_position.x < left_boundary:
 		global_position.x = left_boundary + 0.2
+		motion.x = abs(motion.x)
 	elif global_position.x > right_boundary:
 		global_position.x = right_boundary - 0.2
+		motion.x = -abs(motion.x)
 	#y axis is inverted
 	elif global_position.y < up_boundary:
 		global_position.y = up_boundary + 0.2
+		motion.y = abs(motion.y)
 	elif global_position.y > down_boundary:
 		global_position.y = down_boundary - 0.2
+		motion.y = -abs(motion.y)
 	
 	
 	if invulf > 0:
@@ -59,17 +64,18 @@ func _physics_process(delta: float) -> void:
 func _on_player_opp_collision(o_box: Area2D) -> void:
 	#world_collisions
 	if o_box.name == "left-boundary":
-		motion.x = abs(motion.x)
-		global_position.x += 10
-	elif o_box.name == "right-boundary":
-		motion.x = -abs(motion.x)
-		global_position.x -= 10
-	elif o_box.name == "up-boundary":
-		motion.y = abs(motion.y)
-		global_position.y += 10
-	elif o_box.name == "down-boundary":
-		motion.y = -abs(motion.y)
-		global_position.y -= 10
+		pass
+		#motion.x = abs(motion.x)
+		#global_position.x += 10
+	#elif o_box.name == "right-boundary":
+		#motion.x = -abs(motion.x)
+		#global_position.x -= 10
+	#elif o_box.name == "up-boundary":
+		#motion.y = abs(motion.y)
+		#global_position.y += 10
+	#elif o_box.name == "down-boundary":
+		#motion.y = -abs(motion.y)
+		#global_position.y -= 10
 	else:
 
 
