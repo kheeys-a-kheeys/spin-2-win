@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://becns3bydlsgi" path="res://Assets/0th-tileset-green-walls.png" id="2_x3f3s"]
 [ext_resource type="Texture2D" uid="uid://br5qefi3bien2" path="res://Assets/door-placeholder.png" id="3_w8b8c"]
 [ext_resource type="Script" uid="uid://cweol7ipcl58x" path="res://World/levelContainer/Level-Forest-0/forest0door0.gd" id="4_w8b8c"]
-[ext_resource type="PackedScene" uid="uid://bijijsvvxqmxa" path="res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn" id="6_1f3p6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w8b8c"]
 texture = ExtResource("1_vmjes")
@@ -85,8 +84,6 @@ script = ExtResource("4_w8b8c")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="door-north/Area2D" unique_id=1884085822]
 position = Vector2(36, 4)
 shape = SubResource("RectangleShape2D_1f3p6")
-
-[node name="fire_enemy" parent="." unique_id=1959784128 instance=ExtResource("6_1f3p6")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=821945193]
 navigation_polygon = SubResource("NavigationPolygon_f7dj6")

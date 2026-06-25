@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 	up_boundary = Global.world_boundaries_up
 	down_boundary = Global.world_boundaries_down
 	
+
+	
 	if Global.player:
 		player_pos = Global.player.global_position # find player's global position (from global)
 		look_at(player_pos) 
@@ -75,20 +77,7 @@ func _physics_process(delta: float) -> void:
 		if speed < speed_max:
 			speed += 64 * delta
 	
-	#check wall collisions
-	if global_position.x < left_boundary:
-		global_position.x = left_boundary + 0.2
-		motion.x = abs(motion.x)
-	elif global_position.x > right_boundary:
-		global_position.x = right_boundary - 0.2
-		motion.x = -abs(motion.x)
-	#y axis is inverted
-	elif global_position.y < up_boundary:
-		global_position.y = up_boundary + 0.2
-		motion.y = abs(motion.y)
-	elif global_position.y > down_boundary:
-		global_position.y = down_boundary - 0.2
-		motion.y = -abs(motion.y)
+
 	
 	if Input.is_action_just_pressed("Spawn-enemy"): # test
 		ability_shoot_projectile(delta)
