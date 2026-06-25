@@ -1,0 +1,13 @@
+extends Sprite2D
+
+var shut: bool = false # whether door is accessible or not, for encounters
+
+# variable for when this door is called
+# REMEMBER: level has to be instantiated first BEFORE we move the player!
+@onready var exit_point: Vector2 = global_position + Vector2(36, -32)
+
+func _on_door_entered(area: Area2D) -> void:
+	if area.name == "player-shape":
+		var to_level = "res://World/levelContainer/Level-Forest-0/Level-Forest-0.tscn"
+		var from_door = "door-north"
+		SignalBus.door_entered.emit(to_level, from_door)

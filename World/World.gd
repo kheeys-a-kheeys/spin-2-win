@@ -4,6 +4,9 @@ extends Node2D
 @onready var viewport_rect = get_viewport().get_visible_rect() # since our camera is following the player
 @onready var Enemy_scene = preload("res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn") # for spawn_enemy debug command
 
+func _ready() -> void:
+	SignalBus.door_entered.connect(_on_door_entered)
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_released("spin-cw"):
 		if Player.spin != 1:
@@ -61,3 +64,11 @@ func spawn_enemy(pos, speed):
 	enemy.position = pos
 	enemy.speed = speed
 	add_child(enemy)
+
+func _on_door_entered(to_level: String, from_door: String) -> void:
+	var levelContainer = $levelContainer
+	levelContainer.get_child(0).queue_free()
+	var packed_level = load(to_level)
+	var instnt_level = packed_level.instantiate()
+	levelContainer.add_child(instnt_level)
+	instnt_level.door_transition(from_door)
