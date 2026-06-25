@@ -42,7 +42,8 @@ func _process(delta: float) -> void:
 	Player.set_frame()
 	Player.spin_frame(delta)
 
-func _physics_process(delta: float) -> void:
+
+# return mouse position relative to the viewport centerfunc _physics_process(delta: float) -> void:
 	#if Player.speed < 64:
 		#Player.spin = 0 # gives some leeway in movement
 	
@@ -53,7 +54,6 @@ func _physics_process(delta: float) -> void:
 	if Player.spin != 0:
 		Player.aligning(target)
 
-# return mouse position relative to the viewport center
 func mouse_target() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos - viewport_rect.get_center()

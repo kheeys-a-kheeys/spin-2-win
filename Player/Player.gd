@@ -15,6 +15,12 @@ var invulf: int = 0 # count down i-frames after receiving damage
 var invulf_max: int = 60 # max i-frame count\
 var points: = 0 #players gains points from different interactiosn including killing enemies
 
+#world_boundaries
+var left_boundary: float
+var right_boundary: float
+var up_boundary: float
+var down_boundary: float
+
 @onready var sprite = $spinor
 @onready var fire_aura = $"spinor-fire"
 @onready var frost_aura = $"spinor-frost"
@@ -26,6 +32,24 @@ func _ready() -> void: #set up global
 	print(get_groups())
 
 func _physics_process(delta: float) -> void:
+	#refrence
+	left_boundary = Global.world_boundaries_left
+	right_boundary = Global.world_boundaries_right
+	up_boundary = Global.world_boundaries_up
+	down_boundary = Global.world_boundaries_down
+	
+	#check player out of bounds
+	if global_position.x < left_boundary:
+		global_position.x = left_boundary + 0.2
+	elif global_position.x > right_boundary:
+		global_position.x = right_boundary - 0.2
+	#y axis is inverted
+	elif global_position.y < up_boundary:
+		global_position.y = up_boundary + 0.2
+	elif global_position.y > down_boundary:
+		global_position.y = down_boundary - 0.2
+	
+	
 	if invulf > 0:
 		invulf += -1
 		if invulf % 5 == 0: # invulf / x must be an even number!
@@ -33,9 +57,23 @@ func _physics_process(delta: float) -> void:
 
 # function (eventually) connected to area_entered signal
 func _on_player_opp_collision(o_box: Area2D) -> void:
-	#print("area collided")
-	#print("opponent area positioned at: ", o_box.global_position)
-	damage_machine(o_box)
+	#world_collisions
+	if o_box.name == "left-boundary":
+		motion.x = abs(motion.x)
+		global_position.x += 10
+	elif o_box.name == "right-boundary":
+		motion.x = -abs(motion.x)
+		global_position.x -= 10
+	elif o_box.name == "up-boundary":
+		motion.y = abs(motion.y)
+		global_position.y += 10
+	elif o_box.name == "down-boundary":
+		motion.y = -abs(motion.y)
+		global_position.y -= 10
+	else:
+
+
+		damage_machine(o_box)
 	#player_collision(o_box)
 
 # function connected to body_entered signal
@@ -149,6 +187,13 @@ func damage_machine(o_box: Area2D) -> void:
 			bounce(o_box, speed)
 		elif o_box.get_parent().type == "fire" || o_box.get_parent().type == "frost":
 			damage_received(o_box)
+	
+	#dirty fix but it works so....
+	if global_position.x < -8:
+		global_position.x = 8
+			
+			
+		
 # what to do when actually damaged
 func damage_received(o_box: Area2D) -> void:
 	if invulf == 0: # if i-frames aren't active

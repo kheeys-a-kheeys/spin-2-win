@@ -63,6 +63,17 @@ vertices = PackedVector2Array(493, 494, 10, 494, 10, 10, 493, 10)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 503, 0, 503, 504, 0, 504)])
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ir4rd"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f7dj6"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tyokq"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lcj5s"]
+
 [node name="Level-Cave-0" type="Node2D" unique_id=619317119]
 script = ExtResource("1_wlyaq")
 
@@ -102,5 +113,29 @@ shape = SubResource("RectangleShape2D_ai34y")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=711085607]
 navigation_polygon = SubResource("NavigationPolygon_ai34y")
+
+[node name="left-boundary" type="Area2D" parent="." unique_id=761361994]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left-boundary" unique_id=1802447092]
+position = Vector2(1, 0)
+shape = SubResource("WorldBoundaryShape2D_ir4rd")
+
+[node name="right-boundary" type="Area2D" parent="." unique_id=800398810]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right-boundary" unique_id=758346808]
+position = Vector2(501, 11)
+shape = SubResource("WorldBoundaryShape2D_f7dj6")
+
+[node name="up-boundary" type="Area2D" parent="." unique_id=1023338458]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="up-boundary" unique_id=1076900916]
+position = Vector2(167, 3)
+shape = SubResource("WorldBoundaryShape2D_tyokq")
+
+[node name="down-boundary" type="Area2D" parent="." unique_id=1822338615]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="down-boundary" unique_id=1600391462]
+position = Vector2(200, 502)
+shape = SubResource("WorldBoundaryShape2D_lcj5s")
 
 [connection signal="area_entered" from="door-south/Area2D" to="door-south" method="_on_door_entered"]
