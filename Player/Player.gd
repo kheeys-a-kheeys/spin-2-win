@@ -2,7 +2,7 @@ extends Node2D
 
 # to handle primary gameplay behavior
 
-var spin: int = 0 # -1 for ccw, 1 for cw, 0 for rest
+var spin: int = 0 # -1 for frost, 1 for fire, 0 for rest
 var speed: float = 0 # multiply with direction unit vector to get velocity
 var motion: Vector2 = Vector2(0, 0) # direction of motion, a unit vector
 var k: float = 0.01 # spring constant analog, ours is time dependant
@@ -118,8 +118,16 @@ func damage_machine(o_box: Area2D) -> void:
 		print("attack bounced!")
 		bounce(o_box, speed)
 	
+	# condition for boss encounter
 	if o_box.name == "boss":
-		bounce(o_box, speed)
+		var boss_reff = Global.boss
+		if boss_reff.immune: # boss should be always be element aligned in this case
+			if boss_reff.element_aligned == sign(spin):
+				bounce(o_box, speed)
+			else:
+				damage_received(o_box)
+		else: # deal damage to boss
+			bounce(o_box, speed)
 	
 	# deal damage if element of projectile and player differ
 	# what happens when they are aligned is already handled by the projectile logic :p

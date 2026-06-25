@@ -5,8 +5,8 @@
 
 [node name="HealthBar" type="CanvasLayer" unique_id=532794606]
 offset = Vector2(69, 69)
-scale = Vector2(6, 6)
-transform = Transform2D(6, 0, 0, 6, 69, 69)
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 69, 69)
 script = ExtResource("1_s3vtg")
 
 [node name="health-bar" type="HBoxContainer" parent="." unique_id=1396195228]

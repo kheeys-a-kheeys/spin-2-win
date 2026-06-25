@@ -58,3 +58,5 @@ scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_f7dj6")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=114743962]
+
+[connection signal="area_entered" from="boss" to="." method="_on_boss_area_entered"]

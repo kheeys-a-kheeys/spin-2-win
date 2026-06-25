@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://5w2at1umqh84"]
+
+[ext_resource type="Script" uid="uid://qk5857tvug20" path="res://World/levelContainer/entityContainer/Boss/charge projectile/boss_barrier.gd" id="1_0fgn8"]
+[ext_resource type="Texture2D" uid="uid://1rtg28b52072" path="res://World/levelContainer/entityContainer/Boss/charge projectile/boss-barrier.png" id="1_2tqvv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai34y"]
+size = Vector2(147, 9)
+
+[node name="boss_barrier" type="Node2D" unique_id=2063238781]
+script = ExtResource("1_0fgn8")
+
+[node name="boss-barrier" type="Area2D" parent="." unique_id=1865288179]
+position = Vector2(6, 0)
+rotation = -1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="boss-barrier" unique_id=381253613]
+scale = Vector2(3, 3)
+texture = ExtResource("1_2tqvv")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss-barrier" unique_id=68552690]
+position = Vector2(1.5, 73.5)
+shape = SubResource("RectangleShape2D_ai34y")
