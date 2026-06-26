@@ -4,7 +4,7 @@ extends Node2D
 
 var spin: int = 0 # -1 for frost, 1 for fire, 0 for rest
 var speed: float = 0 # multiply with direction unit vector to get velocity
-var motion: Vector2 = Vector2(0, 0) # direction of motion, a unit vector
+var motion: Vector2 = Vector2(1, 0) # direction of motion, a unit vector
 var k: float = 0.01 # spring constant analog, ours is time dependant
 var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
 
@@ -25,6 +25,11 @@ var down_boundary: float
 @onready var fire_aura = $"spinor-fire"
 @onready var frost_aura = $"spinor-frost"
 @onready var p_area = $"player-shape"
+#@onready var hb_ray = $"hitbox-ray" # EXPERIMENTAL
+@onready var hb_ray = $"raycast-container/hitbox-ray"
+@onready var hb_ray_r = $"raycast-container/hitbox-ray-right"
+@onready var hb_ray_l = $"raycast-container/hitbox-ray-left"
+@onready var raycasts = [hb_ray, hb_ray_r, hb_ray_l]
 
 func _ready() -> void: #set up global
 	Global.player = self
@@ -38,29 +43,55 @@ func _physics_process(delta: float) -> void:
 	up_boundary = Global.world_boundaries_up
 	down_boundary = Global.world_boundaries_down
 	
-	#check player out of bounds
-	#copy this for everything that needs to avoid walls
-	if global_position.x < left_boundary:
-		global_position.x = left_boundary + 0.2
-		motion.x = abs(motion.x)
-	elif global_position.x > right_boundary:
-		global_position.x = right_boundary - 0.2
-		motion.x = -abs(motion.x)
-	#y axis is inverted
-	elif global_position.y < up_boundary:
-		global_position.y = up_boundary + 0.2
-		motion.y = abs(motion.y)
-	elif global_position.y > down_boundary:
-		global_position.y = down_boundary - 0.2
-		motion.y = -abs(motion.y)
+	##check player out of bounds
+	##copy this for everything that needs to avoid walls
+	#if global_position.x < left_boundary:
+		#global_position.x = left_boundary + 0.2
+		#motion.x = abs(motion.x)
+	#elif global_position.x > right_boundary:
+		#global_position.x = right_boundary - 0.2
+		#motion.x = -abs(motion.x)
+	##y axis is inverted
+	#elif global_position.y < up_boundary:
+		#global_position.y = up_boundary + 0.2
+		#motion.y = abs(motion.y)
+	#elif global_position.y > down_boundary:
+		#global_position.y = down_boundary - 0.2
+		#motion.y = -abs(motion.y)
 	
+	# EXPERIMENTAL RAYCAST BLOCK
+	#hb_ray.target_position = speed*motion*delta + 12*Vector2(sign(motion.x), sign(motion.y))
+	#hb_ray.target_position = speed*motion*delta + 12*boxify(motion)
+	hb_ray.target_position = speed*motion*delta + 12*motion # second term is the hitbox radius
+	hb_ray_r.target_position = 12*Vector2(-motion.y, motion.x)
+	hb_ray_l.target_position = 12*Vector2(motion.y, -motion.x)
+	var count = 0
+	for i in raycasts:
+		i.force_raycast_update()
+		if i.is_colliding():
+			global_position += speed*i.get_collision_normal()*delta
+			motion = i.get_collision_normal()
+		else:
+			count += 1
+		if count == raycasts.size():
+			global_position += speed*motion*delta
+	#if hb_ray.is_colliding():
+		##global_position = hb_ray.get_collision_point()
+		#global_position += speed*hb_ray.get_collision_normal()*delta
+		#motion = hb_ray.get_collision_normal()
+		#print(hb_ray.get_collision_normal())
+	#else:
+		#global_position += speed*motion*delta
+	eom()
 	
+	# blinker for invuln frames
 	if invulf > 0:
 		invulf += -1
 		if invulf % 5 == 0: # invulf / x must be an even number!
 			invuln_blink()
 
 # function (eventually) connected to area_entered signal
+# unfortunate misnomer, this is called with ANY area2D
 func _on_player_opp_collision(o_box: Area2D) -> void:
 	#world_collisions
 	if o_box.name == "left-boundary":
@@ -80,12 +111,17 @@ func _on_player_opp_collision(o_box: Area2D) -> void:
 
 
 		damage_machine(o_box)
+	bounce(o_box, speed)
+	print("wall detected?")
 	#player_collision(o_box)
 
 # function connected to body_entered signal
 func _on_player_bod_collision(o_bod: Node2D) -> void:
-	print("body collided")
-	print("opponent body positioned at: ", o_bod.global_position)
+	print("body collided at: ", global_position)
+	#Engine.time_scale = (1/60)
+	print("ray is pointed at: ", hb_ray.target_position)
+	print("ray is colliding? ", hb_ray.is_colliding())
+	#bounce_wall(speed)
 	#player_collision(o_bod)
 
 # speed damping function, we can make this more robust later
@@ -197,9 +233,7 @@ func damage_machine(o_box: Area2D) -> void:
 	#dirty fix but it works so....
 	if global_position.x < -8:
 		global_position.x = 8
-			
-			
-		
+
 # what to do when actually damaged
 func damage_received(o_box: Area2D) -> void:
 	if invulf == 0: # if i-frames aren't active
@@ -225,3 +259,28 @@ func bounce(o_box: Area2D, knock: float) -> void:
 	#if speed < 8:
 		#knock = 4 * knock
 	speed = knock
+
+# same function as bounce(), but for bodies (such as tilemaplayer collision)
+func bounce_wall(knock: float) -> void:
+	k = 0.01
+	motion = -motion
+	speed = knock
+
+# take a unit vector and extend it onto a unit square
+# MAY NOT BE NEEDED
+func boxify(input: Vector2) -> Vector2:
+	var boxied = Vector2(0, 0)
+	#var theta = atan(input.y / input.x)
+	if abs(input.x) > abs(input.y):
+		boxied.y = input.y / abs(input.x)
+		if input.x > 0:
+			boxied.x = 1
+		else:
+			boxied.x = -1
+	else:
+		boxied.x = input.x / abs(input.y)
+		if input.y > 0:
+			boxied.y = 1
+		else:
+			boxied.y = -1
+	return boxied

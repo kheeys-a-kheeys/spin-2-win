@@ -34,18 +34,7 @@ hframes = 3
 [node name="player-hitbox" type="CollisionShape2D" parent="player-shape" unique_id=364508369]
 shape = SubResource("CircleShape2D_ai34y")
 
-[node name="raycast-container" type="Node2D" parent="." unique_id=1056674472]
-
-[node name="hitbox-ray" type="RayCast2D" parent="raycast-container" unique_id=1179051572]
-target_position = Vector2(0, 12)
-collide_with_areas = true
-
-[node name="hitbox-ray-right" type="RayCast2D" parent="raycast-container" unique_id=1012598841]
-target_position = Vector2(12, 0)
-collide_with_areas = true
-
-[node name="hitbox-ray-left" type="RayCast2D" parent="raycast-container" unique_id=1538758517]
-target_position = Vector2(-12, 0)
+[node name="hitbox-ray" type="RayCast2D" parent="." unique_id=1179051572]
 collide_with_areas = true
 
 [connection signal="area_entered" from="player-shape" to="." method="_on_player_opp_collision"]

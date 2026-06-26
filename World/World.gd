@@ -41,14 +41,15 @@ func _process(delta: float) -> void:
 	
 	Player.set_frame()
 	Player.spin_frame(delta)
-
-
-# return mouse position relative to the viewport centerfunc _physics_process(delta: float) -> void:
+	
+	
+	# return mouse position relative to the viewport centerfunc _physics_process(delta: float) -> void:
 	#if Player.speed < 64:
 		#Player.spin = 0 # gives some leeway in movement
 	
-	Player.position = Player.position + Player.speed*Player.motion*delta
-	Player.eom()
+	# COMMENTED OUT FOR RAYCAST EXPERIMENT
+	#Player.position = Player.position + Player.speed*Player.motion*delta
+	#Player.eom()
 	
 	var target = mouse_target()
 	if Player.spin != 0:
