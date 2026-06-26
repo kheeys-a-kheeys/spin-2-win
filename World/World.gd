@@ -59,19 +59,20 @@ func _process(delta: float) -> void:
 			else:
 				Player.omega = mini(3, Player.omega + 1)
 	
-	if Input.is_action_just_released("spin-ccw"):
-		if Player.spin != -1:
-			Player.spin = -1
-			var point = mouse_target()
-			Player.speed = 512.0 * max(1, abs(Player.omega)) # in pixels
-			Player.motion = point.normalized()
-			Player.k = 0.01
-			if Player.omega == 0:
-				Player.omega = -1
+	if !GameOverScreen.visible:
+		if Input.is_action_just_released("spin-ccw"):
+			if Player.spin != -1:
+				Player.spin = -1
+				var point = mouse_target()
+				Player.speed = 512.0 * max(1, abs(Player.omega)) # in pixels
+				Player.motion = point.normalized()
+				Player.k = 0.01
+				if Player.omega == 0:
+					Player.omega = -1
+				else:
+					Player.omega = mini(-1, -Player.omega + 1)
 			else:
-				Player.omega = mini(-1, -Player.omega + 1)
-		else:
-			Player.omega = maxi(-3, Player.omega - 1)
+				Player.omega = maxi(-3, Player.omega - 1)
 	
 	#if Input.is_action_just_pressed("Spawn-enemy"): #test for spawning enemies
 		#spawn_enemy(Vector2(100, 100), 50)
