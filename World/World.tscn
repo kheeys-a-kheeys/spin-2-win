@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://csair6k81qees" path="res://World/World.gd" id="1_y6flb"]
 [ext_resource type="PackedScene" uid="uid://b50yxcibjwq8" path="res://World/levelContainer/Level-Forest-0/Level-Forest-0.tscn" id="2_il6x7"]
 [ext_resource type="PackedScene" uid="uid://fvpdoc2oh0c" path="res://GUI/HealthBar/HealthBar.tscn" id="4_il6x7"]
+[ext_resource type="PackedScene" uid="uid://exaqlqg34jbd" path="res://GUI/GameOverScreen/GameOverScreen.tscn" id="5_o14yy"]
 
 [node name="World" type="Node2D" unique_id=2051603053]
 script = ExtResource("1_y6flb")
@@ -21,3 +22,6 @@ zoom = Vector2(2, 2)
 [node name="GUI" type="Node2D" parent="." unique_id=135750076]
 
 [node name="HealthBar" parent="GUI" unique_id=532794606 instance=ExtResource("4_il6x7")]
+
+[node name="GameOverScreen" parent="GUI" unique_id=1345511260 instance=ExtResource("5_o14yy")]
+visible = false

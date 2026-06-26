@@ -108,8 +108,8 @@ func _on_player_opp_collision(o_box: Area2D) -> void:
 		#motion.y = -abs(motion.y)
 		#global_position.y -= 10
 	else:
-
-
+		
+		
 		damage_machine(o_box)
 	bounce(o_box, speed)
 	print("wall detected?")
@@ -266,11 +266,10 @@ func bounce_wall(knock: float) -> void:
 	motion = -motion
 	speed = knock
 
-# take a unit vector and extend it onto a unit square
-# MAY NOT BE NEEDED
+# take a unit vector and map it onto a unit square
+# could be used to replace multiple raycasts, but testing would need to be done
 func boxify(input: Vector2) -> Vector2:
 	var boxied = Vector2(0, 0)
-	#var theta = atan(input.y / input.x)
 	if abs(input.x) > abs(input.y):
 		boxied.y = input.y / abs(input.x)
 		if input.x > 0:

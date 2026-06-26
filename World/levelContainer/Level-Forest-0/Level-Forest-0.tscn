@@ -89,7 +89,11 @@ shape = SubResource("RectangleShape2D_1f3p6")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=821945193]
 navigation_polygon = SubResource("NavigationPolygon_f7dj6")
 
-[node name="Frost Enemy" parent="." unique_id=1205832860 instance=ExtResource("6_1f3p6")]
+[node name="entityContainer" type="Node2D" parent="." unique_id=399445945]
+
+[node name="Frost Enemy" parent="entityContainer" unique_id=1205832860 instance=ExtResource("6_1f3p6")]
 position = Vector2(64, 255)
+
+[node name="Frost Enemy2" parent="entityContainer" unique_id=2022348286 instance=ExtResource("6_1f3p6")]
 
 [connection signal="area_entered" from="door-north/Area2D" to="door-north" method="_on_door_entered"]

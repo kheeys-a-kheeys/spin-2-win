@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://exaqlqg34jbd"]
+
+[ext_resource type="Texture2D" uid="uid://cgo6ldf5r5sb4" path="res://GUI/GameOverScreen/game-over-head.png" id="1_5o0en"]
+
+[node name="GameOverScreen" type="CanvasLayer" unique_id=1345511260]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=274632264]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5o0en")
+stretch_mode = 6
