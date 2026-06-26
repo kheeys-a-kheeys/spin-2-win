@@ -23,6 +23,7 @@ func _process(delta: float) -> void:
 			for child in $levelContainer.get_children():
 				child.queue_free()
 			$levelContainer.add_child(central_level)
+			$Player.global_position = Vector2(0,0)
 			tutorial_check_once = false
 			
 		
