@@ -119,3 +119,5 @@ func _on_door_entered(to_level: String, from_door: String) -> void:
 func _on_health_update(new_value: int) -> void:
 	if new_value <= 0:
 		GameOverScreen.visible = true
+		Player.speed = 0
+		Player.global_position = $levelContainer.get_child(0).respawn_point

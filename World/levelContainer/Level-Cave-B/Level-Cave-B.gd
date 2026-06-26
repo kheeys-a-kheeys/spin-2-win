@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var respawn_point = $"respawn-point".global_position
 @onready var doors = [$"doorContainer/door-north", $"doorContainer/door-south"]
 
 # this function should be generally applicable to all levels with doors

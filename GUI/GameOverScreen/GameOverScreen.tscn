@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://exaqlqg34jbd"]
 
-[ext_resource type="Texture2D" uid="uid://cgo6ldf5r5sb4" path="res://GUI/GameOverScreen/game-over-head.png" id="1_5o0en"]
+[ext_resource type="Texture2D" uid="uid://rhd1buvgb8th" path="res://GUI/GameOverScreen/game-over.png" id="1_5o0en"]
 
 [node name="GameOverScreen" type="CanvasLayer" unique_id=1345511260]
 

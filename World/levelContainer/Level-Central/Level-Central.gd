@@ -5,6 +5,7 @@ extends Node2D
 #func _ready() -> void:
 	#Global.player.global_position = Vector2(0,0)
 
+@onready var respawn_point = $"respawn-point".global_position
 @onready var doors = [$"doorContainer/door-east"]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
