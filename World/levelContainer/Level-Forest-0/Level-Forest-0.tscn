@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://becns3bydlsgi" path="res://Assets/0th-tileset-green-walls.png" id="2_x3f3s"]
 [ext_resource type="Texture2D" uid="uid://br5qefi3bien2" path="res://Assets/door-placeholder.png" id="3_w8b8c"]
 [ext_resource type="Script" uid="uid://cweol7ipcl58x" path="res://World/levelContainer/Level-Forest-0/forest0door0.gd" id="4_w8b8c"]
+[ext_resource type="PackedScene" uid="uid://6gv6rtc8534e" path="res://World/levelContainer/entityContainer/frost enemy/frost_enemy.tscn" id="6_1f3p6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w8b8c"]
 texture = ExtResource("1_vmjes")
@@ -87,5 +88,8 @@ shape = SubResource("RectangleShape2D_1f3p6")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=821945193]
 navigation_polygon = SubResource("NavigationPolygon_f7dj6")
+
+[node name="Frost Enemy" parent="." unique_id=1205832860 instance=ExtResource("6_1f3p6")]
+position = Vector2(64, 255)
 
 [connection signal="area_entered" from="door-north/Area2D" to="door-north" method="_on_door_entered"]

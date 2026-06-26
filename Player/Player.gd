@@ -62,15 +62,15 @@ func _physics_process(delta: float) -> void:
 	# EXPERIMENTAL RAYCAST BLOCK
 	#hb_ray.target_position = speed*motion*delta + 12*Vector2(sign(motion.x), sign(motion.y))
 	#hb_ray.target_position = speed*motion*delta + 12*boxify(motion)
-	hb_ray.target_position = speed*motion*delta + 12*motion # second term is the hitbox radius
-	hb_ray_r.target_position = 12*Vector2(-motion.y, motion.x)
-	hb_ray_l.target_position = 12*Vector2(motion.y, -motion.x)
+	hb_ray.target_position = speed*motion*delta + 11*motion # second term is the hitbox radius (minus 1 pixel so _on_area_entered can be called)
+	hb_ray_r.target_position = 11*Vector2(-motion.y, motion.x)
+	hb_ray_l.target_position = 11*Vector2(motion.y, -motion.x)
 	var count = 0
 	for i in raycasts:
 		i.force_raycast_update()
 		if i.is_colliding():
-			global_position += speed*i.get_collision_normal()*delta
 			motion = i.get_collision_normal()
+			global_position = i.get_collision_point() + 11*motion
 		else:
 			count += 1
 		if count == raycasts.size():
@@ -119,8 +119,8 @@ func _on_player_opp_collision(o_box: Area2D) -> void:
 func _on_player_bod_collision(o_bod: Node2D) -> void:
 	print("body collided at: ", global_position)
 	#Engine.time_scale = (1/60)
-	print("ray is pointed at: ", hb_ray.target_position)
-	print("ray is colliding? ", hb_ray.is_colliding())
+	#print("ray is pointed at: ", hb_ray.target_position)
+	#print("ray is colliding? ", hb_ray.is_colliding())
 	#bounce_wall(speed)
 	#player_collision(o_bod)
 
