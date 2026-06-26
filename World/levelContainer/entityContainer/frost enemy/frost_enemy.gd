@@ -23,6 +23,11 @@ var up_boundary: float
 var down_boundary: float
 
 @onready var nav_agent = $NavigationAgent2D
+@onready var hb_ray = $"raycasts/hitbox-ray"
+@onready var hb_ray_r = $"raycasts/hitbox-ray-right"
+@onready var hb_ray_l = $"raycasts/hitbox-ray-left"
+@onready var hb_ray_b = $"raycasts/hitbox-ray-back"
+@onready var raycasts = [hb_ray, hb_ray_r, hb_ray_l, hb_ray_b]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,7 +75,22 @@ func _physics_process(delta: float) -> void:
 		$"enemy-frost"/ProgressBar.visible = true
 	
 	# dynamics term
-	position = position + speed*motion*delta
+	#position = position + speed*motion*delta
+	hb_ray.target_position = speed*motion*delta + 11*motion # second term is the hitbox radius (minus 1 pixel so _on_area_entered can be called)
+	hb_ray_r.target_position = 15*Vector2(-motion.y, motion.x)
+	hb_ray_l.target_position = 15*Vector2(motion.y, -motion.x)
+	hb_ray_b.target_position = -15*motion
+	var count = 0
+	for i in raycasts:
+		i.force_raycast_update()
+		if i.is_colliding():
+			motion = i.get_collision_normal()
+			global_position = i.get_collision_point() + 11*motion
+		else:
+			count += 1
+		if count == raycasts.size():
+			global_position += speed*motion*delta
+	
 	if speed < 0:
 		damp()
 	else:
@@ -135,14 +155,14 @@ func damage_machine(o_box: Area2D) -> void:
 		if sign(spin) != -1:
 			damage_received(player_ref.damage)
 		else: # just bounce off attack
-			bounce()
+			bounce(global_position, Global.player.global_position)
 
 
 # what to do when actually damaged
 func damage_received(damage: int) -> void:
 	# damage
 	health += -damage # this enemy dies in one hit
-	bounce()
+	bounce(global_position, Global.player.global_position)
 	
 	# death state
 	if health <= 0:
@@ -158,7 +178,8 @@ func damage_received(damage: int) -> void:
 # it's easier to just make the enemy's speed negative,
 # apply damping to negative speed,
 # then apply acceleration to return it to max speed
-func bounce() -> void:
+func bounce(from: Vector2, to: Vector2) -> void:
 	k = 0.01
 	var knock = 512 # knockback - should probably be a function input
-	speed = -knock
+	motion = to.direction_to(from)
+	speed = knock

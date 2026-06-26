@@ -13,7 +13,7 @@ script = ExtResource("1_2sc6o")
 
 [node name="projectile-frost" type="Area2D" parent="." unique_id=563538207]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="projectile-frost" unique_id=1311033314]
 position = Vector2(0, -2)

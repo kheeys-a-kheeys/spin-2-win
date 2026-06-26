@@ -80,7 +80,6 @@ frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy-frost" unique_id=674723558]
-position = Vector2(1, 3)
 shape = SubResource("CircleShape2D_bq3q5")
 
 [node name="ProgressBar" type="ProgressBar" parent="enemy-frost" unique_id=2098202107]
@@ -91,6 +90,16 @@ offset_bottom = 17.0
 rotation = 4.712389
 theme_override_styles/fill = SubResource("StyleBoxFlat_041js")
 show_percentage = false
+
+[node name="raycasts" type="Node2D" parent="." unique_id=1819670267]
+
+[node name="hitbox-ray" type="RayCast2D" parent="raycasts" unique_id=68381349]
+
+[node name="hitbox-ray-right" type="RayCast2D" parent="raycasts" unique_id=138871483]
+
+[node name="hitbox-ray-left" type="RayCast2D" parent="raycasts" unique_id=931505410]
+
+[node name="hitbox-ray-back" type="RayCast2D" parent="raycasts" unique_id=130952529]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=918895343]
 
