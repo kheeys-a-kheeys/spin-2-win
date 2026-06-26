@@ -3,7 +3,9 @@ extends CanvasLayer
 @onready var label = $"Panel/Moving Dialogue"
 var fire_enemy_scene = preload("res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn")
 var play_once = true
+var play_once1 = true
 signal finish_dialogue
+var all_finished = false
 #enter dialogue here
 var dialogue = [
 	"Welcome brave adventurer",
@@ -71,7 +73,24 @@ func introduce_enemy():
 	$"../Entity-Container".add_child(fire_demo)
 	fire_demo.global_position = Vector2(750, 100)
 	fire_demo.rotation = 180
-	fire_demo.tutorial_mode = false
+
+
+func finish_tutorial():
+	dialogue = [
+		"Great job!",
+		"Good luck adventurer.",
+		"Teleporting now..."
+	]
+
+
+	current_line = 0
+	typing = false
+	show()
+	show_line()
+	await finish_dialogue
+	all_finished = true
+	print("all done here")
+	
 
 func _process(delta: float) -> void:
 	var player_reff = Global.player
@@ -79,3 +98,7 @@ func _process(delta: float) -> void:
 		if play_once:
 			introduce_enemy()
 			play_once = false
+	if player_reff.points > 0:
+		if play_once1:
+			finish_tutorial()
+			play_once1 = false

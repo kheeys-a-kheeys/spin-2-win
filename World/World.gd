@@ -5,9 +5,13 @@ extends Node2D
 @onready var Enemy_scene = preload("res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn") # for spawn_enemy debug command
 @onready var GameOverScreen = $GUI/GameOverScreen
 
+var tutorial_level = preload("res://World/levelContainer/tutorial level/tutorial_level.tscn")
+var cave_scene = preload("res://World/levelContainer/Level-Cave-0/Level-Cave-0.tscn")
+
 func _ready() -> void:
 	SignalBus.door_entered.connect(_on_door_entered)
 	SignalBus.health_update.connect(_on_health_update)
+	$levelContainer.add_child(tutorial_level.instantiate())
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_released("spin-cw"):
