@@ -68,10 +68,8 @@ script = ExtResource("6_vvxqs")
 position = Vector2(36, 8)
 shape = SubResource("RectangleShape2D_ds83f")
 
-[node name="exit-point" type="RayCast2D" parent="doorContainer/door-east" unique_id=1702390847]
-target_position = Vector2(36, 48)
-collision_mask = 0
-collide_with_bodies = false
+[node name="exit-point" type="Node2D" parent="doorContainer/door-east" unique_id=53466303]
+position = Vector2(36, 48)
 
 [node name="entityContainer" type="Node2D" parent="." unique_id=2100043995]
 

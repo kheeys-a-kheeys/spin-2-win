@@ -4,27 +4,27 @@ extends Node2D
 @onready var viewport_rect = get_viewport().get_visible_rect() # since our camera is following the player
 @onready var Enemy_scene = preload("res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn") # for spawn_enemy debug command
 @onready var GameOverScreen = $GUI/GameOverScreen
-var tutorial_check_once = true
-var tutorial_level = preload("res://World/levelContainer/tutorial level/tutorial_level.tscn")
-var cave_scene = preload("res://World/levelContainer/Level-Cave-0/Level-Cave-0.tscn")
-var central_level_scene = preload("res://level_central.tscn")
-var central_level = central_level_scene.instantiate()
-var tutorial = tutorial_level.instantiate()
+#var tutorial_check_once = true
+#var tutorial_level = preload("res://World/levelContainer/tutorial level/tutorial_level.tscn")
+#var cave_scene = preload("res://World/levelContainer/Level-Cave-0/Level-Cave-0.tscn")
+#var central_level_scene = preload("res://level_central.tscn")
+#var central_level = central_level_scene.instantiate()
+#var tutorial = tutorial_level.instantiate()
 func _ready() -> void:
 	SignalBus.door_entered.connect(_on_door_entered)
 	SignalBus.health_update.connect(_on_health_update)
 
-	$levelContainer.add_child(tutorial)
+	#$levelContainer.add_child(tutorial)
 
 func _process(delta: float) -> void:
-	#level changer
-	if tutorial_check_once:
-		if tutorial.finish_all:
-			for child in $levelContainer.get_children():
-				child.queue_free()
-			$levelContainer.add_child(central_level)
-			$Player.global_position = Vector2(0,0)
-			tutorial_check_once = false
+	##level changer
+	#if tutorial_check_once:
+		#if tutorial.finish_all:
+			#for child in $levelContainer.get_children():
+				#child.queue_free()
+			#$levelContainer.add_child(central_level)
+			#$Player.global_position = Vector2(0,0)
+			#tutorial_check_once = false
 			
 		
 	
@@ -111,6 +111,9 @@ func _on_door_entered(to_level: String, from_door: String) -> void:
 	var instnt_level = packed_level.instantiate()
 	levelContainer.add_child(instnt_level)
 	instnt_level.door_transition(from_door)
+	#if instnt_level.name == "Level-Central":
+		#if from_door == "door-east":
+			#print("player moved to: ", Global.player.global_position)
 
 # control when a gameover occurs
 func _on_health_update(new_value: int) -> void:
