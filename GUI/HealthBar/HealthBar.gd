@@ -7,9 +7,10 @@ extends CanvasLayer
 @onready var heart2 = $"health-bar/heart2"
 
 func _ready() -> void:
-	var player_ref = Global.player
-	set_health(player_ref.health)
-	SignalBus.health_update.connect(_on_health_update)
+	if Global.player:
+		var player_ref = Global.player
+		set_health(player_ref.health)
+		SignalBus.health_update.connect(_on_health_update)
 
 func _on_health_update(new_value) -> void:
 	#var player_ref = Global.player

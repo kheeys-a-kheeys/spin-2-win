@@ -7,6 +7,7 @@ var speed: float = 0 # multiply with direction unit vector to get velocity
 var motion: Vector2 = Vector2(1, 0) # direction of motion, a unit vector
 var k: float = 0.01 # spring constant analog, ours is time dependant
 var omega: int = 0 # angular momentum is on a scale from -3 to 3, for now
+var invincible = false
 
 # attributes
 var health: int = 3
@@ -94,7 +95,8 @@ func _physics_process(delta: float) -> void:
 # unfortunate misnomer, this is called with ANY area2D
 func _on_player_opp_collision(o_box: Area2D) -> void:
 	#world_collisions
-	if o_box.name == "left-boundary":
+	if o_box.name == "Cave-Entered":
+		print("cavee")
 		pass
 		#motion.x = abs(motion.x)
 		#global_position.x += 10
@@ -111,7 +113,7 @@ func _on_player_opp_collision(o_box: Area2D) -> void:
 		
 		
 		damage_machine(o_box)
-	bounce(o_box, speed)
+		bounce(o_box, speed)
 	print("wall detected?")
 	#player_collision(o_box)
 
@@ -241,8 +243,9 @@ func damage_received(o_box: Area2D) -> void:
 			look_at(motion) # needs an additional offset, for some reason
 			rotate(-PI/2)
 		print("damage received!")
-		health += -1 # for now, all enemies should deal 1 damage
-		SignalBus.health_update.emit(health)
+		if not invincible:
+			health += -1 # for now, all enemies should deal 1 damage
+			SignalBus.health_update.emit(health)
 		bounce(o_box, 256)
 		invulf = invulf_max
 	
