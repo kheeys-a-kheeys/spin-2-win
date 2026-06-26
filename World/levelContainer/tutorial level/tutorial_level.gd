@@ -15,7 +15,7 @@ func _ready() -> void:
 	$"Entity-Container".add_child(fire_demo)
 	fire_demo.global_position = Vector2(750, 100)
 	fire_demo.rotation = 180
-	fire_demo.tutorial_mode = true
+	fire_demo.tutorial_mode = false
 	
 	
 	

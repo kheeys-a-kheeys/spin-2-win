@@ -3,7 +3,8 @@ var stopping_dist = 130 #stopping dist prevent jitter when trying to minor corre
 var k: float = 0.01 # spring constant analog, ours is time dependant
 var speed = 100
 var speed_max: float = 100 # entity should accelerate to this number
-var motion: Vector2 = Vector2(0, 0) # direction of velocity, unit vector
+var motion: Vector2 = Vector2(1, 0) # direction of velocity, unit vector
+var velocity: Vector2 = Vector2(0, 0) # testing
 var health: int = 100
 var trigger_distance = 10000 #to play around later
 var fire_projectile_scene = preload("res://World/levelContainer/entityContainer/projectiles/bullet.tscn")
@@ -20,6 +21,11 @@ var proj_ar: float = 0.2 # fire rate of projectiles
 var proj_ct: int = 0 # number of projectiles the enemy has fired in one attack
 
 @onready var nav_agent = $NavigationAgent2D
+@onready var hb_ray = $"raycasts/hitbox-ray"
+@onready var hb_ray_r = $"raycasts/hitbox-ray-right"
+@onready var hb_ray_l = $"raycasts/hitbox-ray-left"
+@onready var hb_ray_b = $"raycasts/hitbox-ray-back"
+@onready var raycasts = [hb_ray, hb_ray_r, hb_ray_l, hb_ray_b]
 
 #boundaries
 var left_boundary: float
@@ -48,18 +54,18 @@ func _physics_process(delta: float) -> void:
 		up_boundary = 27
 		down_boundary = 309
 	
-	if global_position.x < left_boundary:
-		motion.x = abs(motion.x)
-		global_position.x = left_boundary + 0.2
-	if global_position.x > right_boundary:
-		motion.x = -abs(motion.x)
-		global_position.x = right_boundary - 0.2
-	if global_position.y < up_boundary:
-		motion.y = abs(motion.y)
-		global_position.y = up_boundary + 0.2
-	if global_position.y > down_boundary:
-		motion.y = -abs(motion.y)
-		global_position.y = down_boundary - 0.2
+	#if global_position.x < left_boundary:
+		#motion.x = abs(motion.x)
+		#global_position.x = left_boundary + 0.2
+	#if global_position.x > right_boundary:
+		#motion.x = -abs(motion.x)
+		#global_position.x = right_boundary - 0.2
+	#if global_position.y < up_boundary:
+		#motion.y = abs(motion.y)
+		#global_position.y = up_boundary + 0.2
+	#if global_position.y > down_boundary:
+		#motion.y = -abs(motion.y)
+		#global_position.y = down_boundary - 0.2
 	
 	
 	if Global.player:
@@ -68,12 +74,14 @@ func _physics_process(delta: float) -> void:
 	if player_pos:
 		relatv_pos = global_position - player_pos # calc relative position
 		nav_agent.target_position = player_pos # pass player position as target for nav_agent
+		#motion = global_position.direction_to(player_pos)
 		if relatv_pos.length() > stopping_dist and relatv_pos.length() < trigger_distance: # analogous to the "is_target_reached" condition of NavAgent, more research required
 			if nav_agent.is_target_reachable():
 				#position = position.move_toward(nav_agent.get_next_path_position(), delta * speed)
 				nxtpat_pos = nav_agent.get_next_path_position()
 				nxtpat_pos = nxtpat_pos - global_position # shift frame
 				motion = nxtpat_pos.normalized()
+				speed = 0
 				#position = position + speed*motion*delta
 				look_at(nav_agent.get_next_path_position())
 			else:
@@ -81,6 +89,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			damp()
 			ability_shoot_projectile(delta)
+	
+	#if abs(speed) < 1:
+		#var r_pos_norm = relatv_pos.normalized()
+		#motion = Vector2(-r_pos_norm.y, r_pos_norm.x)
+		#print(motion)
 	
 	$"enemy-fire/ProgressBar".value = health
 	if health == 100:
@@ -90,7 +103,22 @@ func _physics_process(delta: float) -> void:
 		$"enemy-fire/ProgressBar".visible = true
 	
 	# dynamics term
-	position = position + speed*motion*delta
+	#position = position + speed*motion*delta
+	hb_ray.target_position = speed*motion*delta + 11*motion # second term is the hitbox radius (minus 1 pixel so _on_area_entered can be called)
+	hb_ray_r.target_position = 11*Vector2(-motion.y, motion.x)
+	hb_ray_l.target_position = 11*Vector2(motion.y, -motion.x)
+	hb_ray_b.target_position = -11*motion
+	var count = 0
+	for i in raycasts:
+		i.force_raycast_update()
+		if i.is_colliding():
+			motion = i.get_collision_normal()
+			global_position = i.get_collision_point() + 11*motion
+		else:
+			count += 1
+		if count == raycasts.size():
+			global_position += speed*motion*delta
+	
 	if speed < 0:
 		damp()
 	else:
@@ -157,14 +185,14 @@ func damage_machine(o_box: Area2D) -> void:
 		if sign(spin) == -1:
 			damage_received(player_ref.damage)
 		else: # just bounce off attack
-			bounce()
+			bounce(global_position, Global.player.global_position)
 
 
 # what to do when actually damaged
 func damage_received(damage: int) -> void:
 	# damage
 	health += -damage # this enemy dies in one hit
-	bounce()
+	bounce(global_position, Global.player.global_position)
 	
 	# death state
 	if health <= 0:
@@ -180,7 +208,8 @@ func damage_received(damage: int) -> void:
 # it's easier to just make the enemy's speed negative,
 # apply damping to negative speed,
 # then apply acceleration to return it to max speed
-func bounce() -> void:
+func bounce(from: Vector2, to: Vector2) -> void:
 	k = 0.01
 	var knock = 512 # knockback - should probably be a function input
-	speed = -knock
+	motion = to.direction_to(from)
+	speed = knock

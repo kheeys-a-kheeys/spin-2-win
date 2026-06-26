@@ -58,7 +58,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7dj6"]
-radius = 13.341664
+radius = 13.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vg865"]
 bg_color = Color(0.15686275, 0.93333334, 0.6, 1)
@@ -89,6 +89,16 @@ offset_bottom = 17.0
 rotation = 4.712389
 theme_override_styles/fill = SubResource("StyleBoxFlat_vg865")
 show_percentage = false
+
+[node name="raycasts" type="Node2D" parent="." unique_id=1162398044]
+
+[node name="hitbox-ray" type="RayCast2D" parent="raycasts" unique_id=2133284046]
+
+[node name="hitbox-ray-right" type="RayCast2D" parent="raycasts" unique_id=495953639]
+
+[node name="hitbox-ray-left" type="RayCast2D" parent="raycasts" unique_id=1008254088]
+
+[node name="hitbox-ray-back" type="RayCast2D" parent="raycasts" unique_id=1116808571]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=512298525]
 
