@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://blydyhst5wm1s" path="res://Assets/0th-tileset-green.png" id="4_3eixv"]
 [ext_resource type="Texture2D" uid="uid://um8ffn1ds3jm" path="res://Assets/door-marble.png" id="5_dvmpx"]
 [ext_resource type="PackedScene" uid="uid://bijijsvvxqmxa" path="res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn" id="6_d1foo"]
+[ext_resource type="Script" uid="uid://bhyn7lmf8wxos" path="res://World/levelContainer/Level-Central/level_central_door_east.gd" id="6_vvxqs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_heorl"]
 texture = ExtResource("4_3eixv")
@@ -54,17 +55,23 @@ tile_set = SubResource("TileSet_ds83f")
 
 [node name="doorContainer" type="Node2D" parent="." unique_id=1699275779]
 
-[node name="door-north" type="Sprite2D" parent="doorContainer" unique_id=1828122956]
+[node name="door-east" type="Sprite2D" parent="doorContainer" unique_id=1828122956]
 position = Vector2(944, 280)
 rotation = 1.5707964
 texture = ExtResource("5_dvmpx")
 centered = false
+script = ExtResource("6_vvxqs")
 
-[node name="Area2D" type="Area2D" parent="doorContainer/door-north" unique_id=2096432297]
+[node name="Area2D" type="Area2D" parent="doorContainer/door-east" unique_id=2096432297]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="doorContainer/door-north/Area2D" unique_id=1533503851]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="doorContainer/door-east/Area2D" unique_id=1533503851]
 position = Vector2(36, 8)
 shape = SubResource("RectangleShape2D_ds83f")
+
+[node name="exit-point" type="RayCast2D" parent="doorContainer/door-east" unique_id=1702390847]
+target_position = Vector2(36, 48)
+collision_mask = 0
+collide_with_bodies = false
 
 [node name="entityContainer" type="Node2D" parent="." unique_id=2100043995]
 
@@ -73,3 +80,5 @@ position = Vector2(529, 171)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1009041515]
 navigation_polygon = SubResource("NavigationPolygon_ai34y")
+
+[connection signal="area_entered" from="doorContainer/door-east/Area2D" to="doorContainer/door-east" method="_on_door_entered"]
