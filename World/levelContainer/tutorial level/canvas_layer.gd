@@ -5,7 +5,7 @@ var fire_enemy_scene = preload("res://World/levelContainer/entityContainer/fire 
 var play_once = true
 var play_once1 = true
 signal finish_dialogue
-var all_finished = false
+
 #enter dialogue here
 var dialogue = [
 	"Welcome brave adventurer",
@@ -79,7 +79,7 @@ func finish_tutorial():
 	dialogue = [
 		"Great job!",
 		"Good luck adventurer.",
-		"Teleporting now..."
+		"Press Space to teleport to main world"
 	]
 
 
@@ -88,7 +88,7 @@ func finish_tutorial():
 	show()
 	show_line()
 	await finish_dialogue
-	all_finished = true
+	$"..".finish_all = true
 	print("all done here")
 	
 

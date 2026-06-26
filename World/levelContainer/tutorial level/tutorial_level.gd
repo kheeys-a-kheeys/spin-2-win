@@ -3,6 +3,7 @@ var fire_enemy_scene = preload("res://World/levelContainer/entityContainer/fire 
 var frost_enemy_scene = preload("res://World/levelContainer/entityContainer/frost enemy/frost_enemy.tscn")
 var player_reff
 var tutorial_complete = false
+var finish_all = false
 
 
 # Called when the node enters the scene tree for the first time.
