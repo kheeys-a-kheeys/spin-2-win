@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://yjjh1mdour5i" path="res://Assets/0th-tileset-granite-walls.png" id="2_e65w4"]
 [ext_resource type="Texture2D" uid="uid://br5qefi3bien2" path="res://Assets/door-placeholder.png" id="3_fqheo"]
 [ext_resource type="Script" uid="uid://do8lhkoqoi3ys" path="res://World/levelContainer/Level-Cave-0/cave0door0.gd" id="4_e65w4"]
+[ext_resource type="Texture2D" uid="uid://um8ffn1ds3jm" path="res://Assets/door-marble.png" id="4_x071k"]
 [ext_resource type="Script" uid="uid://dic8gtlufw66j" path="res://World/levelContainer/Level-Cave-0/cave0door1.gd" id="5_fqheo"]
 [ext_resource type="PackedScene" uid="uid://6gv6rtc8534e" path="res://World/levelContainer/entityContainer/frost enemy/frost_enemy.tscn" id="7_loulv"]
 
@@ -76,15 +77,15 @@ tile_map_data = PackedByteArray("AAAAAAEAAAAFAAAAAAAAAAIAAAAFAAAAAAAAAAMAAAAFAAA
 tile_set = SubResource("TileSet_t5xhs")
 
 [node name="door-north" type="Sprite2D" parent="." unique_id=1535472327]
-position = Vector2(216, 0)
-texture = ExtResource("3_fqheo")
+position = Vector2(216, -8)
+texture = ExtResource("4_x071k")
 centered = false
 script = ExtResource("4_e65w4")
 
 [node name="Area2D" type="Area2D" parent="door-north" unique_id=1528123768]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="door-north/Area2D" unique_id=656438900]
-position = Vector2(36, 4)
+position = Vector2(36, 8)
 shape = SubResource("RectangleShape2D_ai34y")
 
 [node name="door-south" type="Sprite2D" parent="." unique_id=1744562032]
