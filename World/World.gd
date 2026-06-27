@@ -30,8 +30,9 @@ func _process(delta: float) -> void:
 			
 		
 	
-	
-	
+	# hide the tutorial when we loop back to the beginning
+	if GameWonScreen.visible:
+		$levelContainer.get_child(0).tutorial.visible = false # don't even ask
 	
 	if Input.is_action_just_released("spin-cw"):
 		if GameOverScreen.visible:

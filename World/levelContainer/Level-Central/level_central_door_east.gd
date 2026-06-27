@@ -6,12 +6,18 @@ var shut: bool = false # whether door is accessible or not, for encounters
 # REMEMBER: level has to be instantiated first BEFORE we move the player!
 @onready var exit_point: Vector2 = $"exit-point".global_position
 
-
-func _process(delta: float) -> void:
-	if $"../../CanvasLayer".tutorial_done == true:
-		shut = false
+func _ready() -> void:
+	if shut:
+		frame = 1
 	else:
-		shut = true
+		frame = 0
+
+#func _process(delta: float) -> void:
+	#if $"../../CanvasLayer".tutorial_done == true:
+		#shut = false
+	#else:
+		#shut = true
+
 func _on_door_entered(area: Area2D) -> void:
 	if area.name == "player-shape":
 		if !shut:

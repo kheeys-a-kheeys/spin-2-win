@@ -7,6 +7,7 @@ extends Node2D
 
 @onready var respawn_point = $"respawn-point".global_position
 @onready var doors = [$"doorContainer/door-east"]
+@onready var tutorial = $CanvasLayer
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:

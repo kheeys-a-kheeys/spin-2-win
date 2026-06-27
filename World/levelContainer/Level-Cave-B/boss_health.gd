@@ -13,7 +13,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_instance_valid(boss):
 		boss_health = $"../entityContainer/Boss".health
-		print((boss_health / boss_max_health) * 100)
+		#print((boss_health / boss_max_health) * 100)
 		$MarginContainer/CenterContainer/VBoxContainer/ProgressBar.value = (float(boss_health) / boss_max_health) * 100
 	else:
 		$MarginContainer/CenterContainer/VBoxContainer/ProgressBar.value = 0

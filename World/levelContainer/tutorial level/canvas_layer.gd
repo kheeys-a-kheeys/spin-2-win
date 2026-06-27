@@ -9,11 +9,11 @@ signal finish_dialogue
 
 #enter dialogue here
 var dialogue = [
-	"Welcome brave adventurer",
-	"This game is all about spining..",
+	"Welcome Dancer!",
+	"This game is all about spinning",
 	"Press the Left Mouse Button to spin Clockwise",
 	"Press the Right Mouse Button to spin Counter-Clockwise",
-	"You can gather more spin by repeatingly spinning in the same direction, then spin in the opposite direction and the player will move further in the direction of the mouse.",
+	"You can gather more spin by repeatingly spinning in the same direction, then spin in the opposite direction for a big boost!",
 	"Take some time to explore and get use to movement before making your way to the cave on the right..."
 ]
 
@@ -54,14 +54,14 @@ func _input(event):
 
 func introduce_enemy():
 	dialogue = [
-		"Well before you enter, i'm sure you notice the different effects you have while spinning",
-		"All the heros have a special ability, yours is the elements, frost and fire",
-		"The lands are littered with enemies, no where is safe accept your base.",
-		"I have a few tips for fighting them",
-		"They are two types of enemies, frost and fire, and they both shoot projectiles, so be sure to get in cover if you can't dodge them!",
-		"You can also use your elemental powers to engage in combat: If your element aligns with the projectiles, the projectiles will phase right through you, otherwise, they deal heavy damage!",
-		"To attack the enemy, you have to charge and hit the enemy with an opposite element to the enemy.",
-		"Oh one more thing, enemies shoot in volleys!",
+		"Well, before you enter, I'm sure you notice the different effects you have while spinning",
+		#"All the heros have a special ability, yours is the elements, frost and fire",
+		#"The lands are littered with enemies, no where is safe except your base.",
+		#"I have a few tips for fighting them",
+		#"They are two types of enemies, frost and fire, and they both shoot projectiles, so be sure to get in cover if you can't dodge them!",
+		"You can also use these elemental powers to engage in combat: If your element aligns with projectiles, they will phase right through you, otherwise, they deal heavy damage!",
+		"To attack the enemy, you have to charge and hit them with their opposite element",
+		"Oh, one more thing, enemies shoot in volleys!",
 		"There should be an enemy in that cave, good luck!"
 	]
 
@@ -79,8 +79,8 @@ func introduce_enemy():
 func finish_tutorial():
 	dialogue = [
 		"Great job!",
-		"Good luck adventurer.",
-		"Continue down this cave to start your journey"
+		"Continue down this cave to start your journey",
+		"Good luck Dancer."
 	]
 
 	
