@@ -63,6 +63,7 @@ position = Vector2(944, 280)
 rotation = 1.5707964
 texture = ExtResource("5_dvmpx")
 centered = false
+vframes = 2
 script = ExtResource("6_vvxqs")
 
 [node name="Area2D" type="Area2D" parent="doorContainer/door-east" unique_id=2096432297]
