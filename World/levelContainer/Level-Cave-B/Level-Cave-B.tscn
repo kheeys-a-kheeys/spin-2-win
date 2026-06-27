@@ -87,8 +87,12 @@ navigation_polygon = SubResource("NavigationPolygon_ai34y")
 script = ExtResource("8_pawie")
 
 [node name="MarginContainer" type="MarginContainer" parent="Boss-Health" unique_id=1029376908]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -136.0
 offset_right = 1280.0
-offset_bottom = 136.0
+grow_vertical = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="Boss-Health/MarginContainer" unique_id=2106630635]
 layout_mode = 2
