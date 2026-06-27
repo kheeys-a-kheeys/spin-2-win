@@ -5,8 +5,8 @@
 [ext_resource type="TileSet" uid="uid://csuab4i40s61b" path="res://World/levelContainer/cave_and_forest_wall_tiles.tres" id="3_gogbr"]
 [ext_resource type="Texture2D" uid="uid://blydyhst5wm1s" path="res://Assets/0th-tileset-green.png" id="4_3eixv"]
 [ext_resource type="Texture2D" uid="uid://um8ffn1ds3jm" path="res://Assets/door-marble.png" id="5_dvmpx"]
-[ext_resource type="PackedScene" uid="uid://bijijsvvxqmxa" path="res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn" id="6_d1foo"]
 [ext_resource type="Script" uid="uid://bhyn7lmf8wxos" path="res://World/levelContainer/Level-Central/level_central_door_east.gd" id="6_vvxqs"]
+[ext_resource type="Script" uid="uid://dmiv72qgmp3pe" path="res://World/levelContainer/tutorial level/canvas_layer.gd" id="8_gogbr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_heorl"]
 texture = ExtResource("4_3eixv")
@@ -77,11 +77,33 @@ position = Vector2(36, 48)
 
 [node name="entityContainer" type="Node2D" parent="." unique_id=2100043995]
 
-[node name="fire_enemy" parent="entityContainer" unique_id=1959784128 instance=ExtResource("6_d1foo")]
-position = Vector2(538, 151)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1009041515]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_ai34y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1891162125]
+layer = 10
+script = ExtResource("8_gogbr")
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=79182070]
+offset_left = 40.0
+offset_top = 700.0
+offset_right = 1240.0
+offset_bottom = 920.0
+
+[node name="Moving Dialogue" type="RichTextLabel" parent="CanvasLayer/Panel" unique_id=1878388037]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 11.0
+offset_right = 1023.0
+offset_bottom = 198.0
+text = "hello"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Panel" unique_id=753248619]
+layout_mode = 0
+offset_left = 982.0
+offset_top = 190.0
+offset_right = 1261.0
+offset_bottom = 265.0
+text = "Press space to continue"
 
 [connection signal="area_entered" from="doorContainer/door-east/Area2D" to="doorContainer/door-east" method="_on_door_entered"]

@@ -4,6 +4,7 @@ extends CanvasLayer
 var fire_enemy_scene = preload("res://World/levelContainer/entityContainer/fire enemy/fire_enemy.tscn")
 var play_once = true
 var play_once1 = true
+var tutorial_done = false
 signal finish_dialogue
 
 #enter dialogue here
@@ -70,7 +71,7 @@ func introduce_enemy():
 	show_line()
 	await finish_dialogue
 	var fire_demo = fire_enemy_scene.instantiate()
-	$"../Entity-Container".add_child(fire_demo)
+	$"../entityContainer".add_child(fire_demo)
 	fire_demo.global_position = Vector2(750, 100)
 	fire_demo.rotation = 180
 
@@ -79,16 +80,17 @@ func finish_tutorial():
 	dialogue = [
 		"Great job!",
 		"Good luck adventurer.",
-		"Press Space to teleport to main world"
+		"Continue down this cave to start your journey"
 	]
 
-
+	
 	current_line = 0
 	typing = false
 	show()
 	show_line()
 	await finish_dialogue
-	$"..".finish_all = true
+	tutorial_done = true
+
 	print("all done here")
 	
 
