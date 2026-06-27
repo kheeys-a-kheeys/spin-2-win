@@ -4,6 +4,7 @@ extends Node2D
 @onready var viewport_rect = get_viewport().get_visible_rect() # since our camera is following the player
 @onready var Enemy_scene = preload("res://World/levelContainer/entityContainer/0th-enemy/enemies.tscn") # for spawn_enemy debug command
 @onready var GameOverScreen = $GUI/GameOverScreen
+@onready var GameWonScreen = $GUI/GameWonScreen
 #var tutorial_check_once = true
 #var tutorial_level = preload("res://World/levelContainer/tutorial level/tutorial_level.tscn")
 #var cave_scene = preload("res://World/levelContainer/Level-Cave-0/Level-Cave-0.tscn")
@@ -13,6 +14,7 @@ extends Node2D
 func _ready() -> void:
 	SignalBus.door_entered.connect(_on_door_entered)
 	SignalBus.health_update.connect(_on_health_update)
+	SignalBus.game_beaten.connect(_on_game_beaten)
 
 	#$levelContainer.add_child(tutorial)
 
@@ -45,6 +47,9 @@ func _process(delta: float) -> void:
 			
 			# vanish gameover screen
 			GameOverScreen.visible = false
+		elif GameWonScreen.visible:
+			# vanish win screen
+			GameWonScreen.visible = false
 		else:
 			if Player.spin != 1:
 				Player.spin = 1
@@ -59,7 +64,7 @@ func _process(delta: float) -> void:
 			else:
 				Player.omega = mini(3, Player.omega + 1)
 	
-	if !GameOverScreen.visible:
+	if !GameOverScreen.visible && !GameWonScreen.visible:
 		if Input.is_action_just_released("spin-ccw"):
 			if Player.spin != -1:
 				Player.spin = -1
@@ -122,3 +127,19 @@ func _on_health_update(new_value: int) -> void:
 		GameOverScreen.visible = true
 		Player.speed = 0
 		Player.global_position = $levelContainer.get_child(0).respawn_point
+
+# for when the player beats the boss
+func _on_game_beaten(restart_at: Vector2) -> void:
+	# show win screen
+	GameWonScreen.visible = true
+	
+	# reset player
+	Player.global_position = restart_at
+	Player.health = 3
+	SignalBus.health_update.emit(Player.health)
+	
+	# reset game
+	var levelpath = "res://World/levelContainer/Level-Central/Level-Central.tscn"
+	$levelContainer.get_child(0).queue_free()
+	var packed_level = load(levelpath)
+	$levelContainer.add_child(packed_level.instantiate())

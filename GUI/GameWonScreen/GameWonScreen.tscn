@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://k41ktr83u462"]
+
+[ext_resource type="Texture2D" uid="uid://ddqfxjvu1nmgi" path="res://GUI/GameWonScreen/game_won.png" id="1_ddgg0"]
+
+[node name="GameWonScreen" type="CanvasLayer" unique_id=1687103510]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2074668636]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ddgg0")
