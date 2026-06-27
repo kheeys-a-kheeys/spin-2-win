@@ -77,7 +77,7 @@ position = Vector2(36, 48)
 [node name="entityContainer" type="Node2D" parent="." unique_id=2100043995]
 
 [node name="fire_enemy" parent="entityContainer" unique_id=1959784128 instance=ExtResource("6_d1foo")]
-position = Vector2(529, 171)
+position = Vector2(538, 151)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1009041515]
 visible = false

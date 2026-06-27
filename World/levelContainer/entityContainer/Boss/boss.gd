@@ -17,9 +17,9 @@ var immune: bool
 # variables to handle what "choices" the boss makes
 var ab_perf_count: int = 0 # number of times any ability has been performed
 var ability_cd: float = 0 # count up until it reaches the threshold
-var ability_cd_max: float = 4.0 # in seconds
+var ability_cd_max: float = 6.0 # in seconds
 var barrier_cd: float = 4.0 # cooldown for barrier ability
-var barrier_cd_max: float = 4.0
+var barrier_cd_max: float = 8.0
 var prfrmng_ablty: bool = false # to control movement while performing an ability
 var rng = RandomNumberGenerator.new()
 
@@ -58,8 +58,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			speed = 0
 	
-	if Input.is_action_just_pressed("Spawn-enemy"):
-		charge_attack("fire")
+	#if Input.is_action_just_pressed("Spawn-enemy"):
+		#charge_attack("fire")
 	
 	# decide whether to perform an ability
 	#if ability_cd > ability_cd_max:
