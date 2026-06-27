@@ -1,7 +1,7 @@
 extends Sprite2D
 
 var shut: bool = false # whether door is accessible or not, for encounters
-
+var tutorial_run_once = true
 # variable for when this door is called
 # REMEMBER: level has to be instantiated first BEFORE we move the player!
 @onready var exit_point: Vector2 = $"exit-point".global_position
