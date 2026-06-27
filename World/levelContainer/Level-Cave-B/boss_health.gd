@@ -15,3 +15,5 @@ func _process(delta: float) -> void:
 		boss_health = $"../entityContainer/Boss".health
 		print((boss_health / boss_max_health) * 100)
 		$MarginContainer/CenterContainer/VBoxContainer/ProgressBar.value = (float(boss_health) / boss_max_health) * 100
+	else:
+		$MarginContainer/CenterContainer/VBoxContainer/ProgressBar.value = 0

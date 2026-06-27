@@ -1,6 +1,6 @@
 extends Node2D
 var health
-var health_max: int = 800
+var health_max: int = 1600
 var trigger_box: = 500 #pixels for length, bounding box for enemy is created by x * x pixels wide, enemy is only activated if player is in the box
 var in_reach: int #pixels, if in reach, boss can attack, similar to stopping distance
 var left_down: Vector2
@@ -16,10 +16,10 @@ var immune: bool
 
 # variables to handle what "choices" the boss makes
 var ab_perf_count: int = 0 # number of times any ability has been performed
-var ability_cd: float = 0 # count up until it reaches the threshold
-var ability_cd_max: float = 6.0 # in seconds
-var barrier_cd: float = 4.0 # cooldown for barrier ability
-var barrier_cd_max: float = 8.0
+var ability_cd: float = 3.0 # count up until it reaches the threshold
+var ability_cd_max: float = 5.0 # in seconds
+var barrier_cd: float = 7.0 # cooldown for barrier ability
+var barrier_cd_max: float = 7.0
 var prfrmng_ablty: bool = false # to control movement while performing an ability
 var rng = RandomNumberGenerator.new()
 
